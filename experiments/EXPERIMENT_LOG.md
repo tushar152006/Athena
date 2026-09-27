@@ -11,7 +11,8 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-000* | 2026-09-27 | Project Audit Verification | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | 45s | 1.1GB | **AUDIT COMPLETED** |
 | *EXP-001* | 2026-09-27 | Full Data Forensics & Noise Profiling | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | 3m 18s | 2.8GB | **FORENSICS COMPLETED** |
 | *EXP-002* | 2026-09-27 | Local Evaluator Engine & 2.2M Benchmark | 1.000000 | 3.46 | 1.000000 | 1.000000 | 1.000000 | 13.56s | 2.03GB | **EVALUATOR VERIFIED** |
-| *EXP-003* | *Planned* | Baseline Exact Normalized Matcher | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 3 |
+| *EXP-003* | 2026-09-27 | Deterministic Exact Baseline Matcher | 0.181969 | 2.83 | 0.303609 | 0.393628 | 0.206765 | 113.33s | 3.65GB | **BASELINE ESTABLISHED** |
+| *EXP-004* | *Planned* | Multi-Channel Candidate Blocking | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 4 |
 
 ---
 
@@ -53,6 +54,24 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * Self-evaluation verification: Macro $F_{0.5} = \mathbf{1.000000}$, Precision = $\mathbf{1.000000}$, Recall = $\mathbf{1.000000}$, Singleton Accuracy = $\mathbf{1.000000}$.
   * Candidate blocking metrics: Pairs Completeness = $\mathbf{1.000000}$, Reduction Ratio = $\mathbf{0.99999966}$, Parsimony (Mean: 3.46, P90: 6.0, P99: 8.0, >25: 0.00%).
 * **Decision**: **EVALUATOR ADOPTED AS CANONICAL GROUND TRUTH**.
-* **Next Step**: Phase 3 — Baseline Implementation (Awaiting User Prompt).
+
+### EXP-003: Phase 3 — Deterministic Exact Baseline Matcher
+* **Date**: September 27, 2026
+* **Objective**: Measure empirical performance floor using exact normalized string matching on `(country, norm_name)`.
+* **Modules**: [`src/baseline/exact_matcher.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/baseline/exact_matcher.py), [`scripts/run_baseline.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_baseline.py)
+* **Official Validator Status**: **PASS (0 Errors, 0 Warnings)** on 2,206,821 emitted rows.
+* **Measured Baseline Performance on Full Training Set**:
+  * **Macro $F_{0.5}$ Score**: **`0.303609`** (The baseline floor to beat).
+  * **Macro Precision**: **`0.393628`** ($39.36\%$).
+  * **Macro Recall**: **`0.206765`** ($20.68\%$).
+  * **Singleton Accuracy**: **`0.623236`** ($62.32\%$).
+  * **Matched Macro $F_{0.5}$**: **`0.284703`**.
+  * **Candidate Pairs Completeness**: **`0.181969`** ($18.20\%$ recall; captures 1,389,945 of 7.64M true pairs).
+  * **Candidate Reduction Ratio**: **`0.99999973`**.
+  * **Candidate Parsimony**: Mean **`2.83`**, Median **`1.0`**, P90 **`10.0`**, $>25$ cands **`0.00%`**.
+* **Resource Profile**: Total pipeline wall time **113.33s** (Matcher: 31.4s, Validator: 18.0s, Evaluator: 7.6s), Peak RAM **3.65 GB**.
+* **Key Findings**: Exact matching misses $81.8\%$ of true matches due to legal suffixes, Indic transliteration, and typos. In addition, exact matching produces $4.85\text{M}$ false positives due to identical franchise names across different locations.
+* **Decision**: **BASELINE ESTABLISHED**. Serves as canonical benchmark for Phase 4 Blocking.
+* **Next Step**: Phase 4 — Candidate Generation & Multi-Pass Blocking (Awaiting User Prompt).
 
 

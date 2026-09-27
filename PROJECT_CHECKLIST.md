@@ -32,9 +32,10 @@
 
 
 ## Baseline
-- [ ] Baseline implemented (Pending Phase 3)
-- [ ] Baseline measured (Pending Phase 3)
-- [ ] Baseline documented (Pending Phase 3)
+- [x] Baseline implemented (`src/baseline/exact_matcher.py` & `scripts/run_baseline.py`)
+- [x] Baseline measured (Macro $F_{0.5} = 0.303609$, Candidate Recall = $0.181969$, Precision = $0.393628$, Recall = $0.206765$)
+- [x] Baseline documented (`reports/PHASE_03_BASELINE.md`)
+
 
 ## Blocking
 - [ ] Blocking strategy A (Exact clean name)
