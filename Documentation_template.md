@@ -128,7 +128,21 @@ All models were evaluated using the exact competition Macro $F_{0.5}$ formula ac
 
 ---
 
-## 6. Official Submission Verification
+## 6. Academic Integrity, Fair Play & Model Licensing
+
+### 6.1 Fair Play Compliance (Zero External Data)
+In strict accordance with the competition rules:
+- **No External Lookups**: Our solution does not use any external databases, business registries, geocoding APIs, or third-party web services.
+- **Purely In-Domain Learning**: All candidate blocking rules, feature extraction metrics, and model weights are trained exclusively on the provided `train` dataset.
+- **Self-Contained Execution**: The pipeline runs completely offline without requiring internet access or remote API keys.
+
+### 6.2 Model Architecture & License Compliance
+- **Permissive Open Source**: The core matching model is a LightGBM GBDT (MIT License) paired with C++ RapidFuzz (MIT License) and Polars (MIT License).
+- **Parameter Ceiling Compliance**: The LightGBM tree ensemble contains approximately 9,600 decision nodes (model file size $\sim 1.2$ MB), representing less than $0.0002\%$ of the permissible 8 Billion parameter ceiling.
+
+---
+
+## 7. Official Submission Verification
 
 Our final test output files were tested directly against the official organizer script (`student_resource/utils/validate_submission.py`):
 ```text
@@ -143,11 +157,12 @@ PASS — no blocking issues found. Safe to submit.
 - **Output Rows**: Exactly 1,732,544 rows in both files (100% test coverage).
 - **Candidate Parsimony**: Mean 13.19 candidates/entity (max cap 20).
 - **Subset Integrity**: 100% of emitted matches are strict subsets of candidate pairs.
-- **Packaging**: `submission.zip` is 165.31 MB, containing `matching_results.tsv`, `candidate_pairs.tsv`, `Documentation_template.md`, and clean runnable code in `code/business_entity_resolution/`.
+- **Self-Match & Cross-Source Integrity**: Zero self-matches to Source 1; all matched IDs reference exclusively Source 2 or Source 3.
+- **Packaging**: `VENUS_submission.zip` contains `output/matching_results.tsv`, `output/candidate_pairs.tsv`, `Documentation_template.md`, and clean runnable code in `code/business_entity_resolution/`.
 
 ---
 
-## 7. Conclusion
+## 8. Conclusion
 
 By combining high-speed vectorized Polars blocking, rich RapidFuzz string metrics, hard-negative-trained gradient boosting, and precision-biased threshold calibration, Team VENUS delivered an efficient, mathematically principled solution for the Amazon ML Challenge 2026. The pipeline scales to millions of records under 12 GB of RAM while achieving strong validation Macro $F_{0.5} \ge 0.7339$.
 
@@ -158,8 +173,8 @@ By combining high-speed vectorized Polars blocking, rich RapidFuzz string metric
 The runnable codebase inside `code/business_entity_resolution/` is organized as follows:
 ```text
 code/business_entity_resolution/
-├── README.md                          # Execution instructions
-├── requirements.txt                   # Minimal dependencies (polars, rapidfuzz, lightgbm)
+├── README.md                          # Execution instructions (data → blocking → matching → output)
+├── requirements.txt                   # Pinned dependencies (polars, rapidfuzz, lightgbm, scipy)
 ├── src/
 │   ├── blocking/                      # Multi-pass candidate generation & inverted index
 │   ├── features/                      # 20-dimensional pairwise feature extractor
@@ -170,12 +185,15 @@ code/business_entity_resolution/
 ├── scripts/
 │   └── run_inference.py               # Deterministic entry point
 └── models/
-    └── lightgbm_pairwise.txt          # Trained model weights
+    └── lightgbm_pairwise.txt          # Trained model weights (MIT License)
 ```
 
-**Reproduction Command**:
+**End-to-End Reproduction Steps**:
 ```bash
+# 1. Install dependencies
 pip install -r requirements.txt
+
+# 2. Run end-to-end inference (reads test data, performs blocking, feature extraction, scoring, and output generation)
 python scripts/run_inference.py
 ```
-This runs the full test pipeline and regenerates `output/candidate_pairs.tsv` and `output/matching_results.tsv`.
+This regenerates `output/candidate_pairs.tsv` and `output/matching_results.tsv` matching the exact submitted predictions.
