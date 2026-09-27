@@ -1,0 +1,636 @@
+{
+  "timestamp": "2026-09-27T14:32:28Z",
+  "validation_universe": 4000,
+  "validation_candidate_pairs": 56469,
+  "models": {
+    "Logistic Regression": {
+      "model_name": "Logistic Regression",
+      "description": "L2 Regularized Linear Model with Feature Standardization",
+      "fit_time_seconds": 0.77,
+      "inf_time_seconds": 0.012,
+      "inf_latency_us_per_pair": 0.21,
+      "inf_throughput_pairs_sec": 4694873.5,
+      "roc_auc": 0.99138,
+      "pr_auc": 0.95766,
+      "logloss": 0.0846,
+      "default_p050": {
+        "macro_f05": 0.69979,
+        "macro_precision": 0.78263,
+        "macro_recall": 0.57274,
+        "singleton_accuracy": 0.80769
+      },
+      "optimal_p": {
+        "threshold": 0.55,
+        "macro_f05": 0.70041,
+        "macro_precision": 0.78616,
+        "macro_recall": 0.56784,
+        "singleton_accuracy": 0.82051
+      },
+      "sweep": [
+        {
+          "threshold": 0.4,
+          "macro_f05": 0.6956361917855962,
+          "macro_precision": 0.772353418109668,
+          "macro_recall": 0.5803144841269839,
+          "singleton_accuracy": 0.7393162393162394,
+          "total_matches": 8641,
+          "mean_matches_per_entity": 2.16025,
+          "singletons_declared": 743
+        },
+        {
+          "threshold": 0.45,
+          "macro_f05": 0.6981682647293828,
+          "macro_precision": 0.7787582792207789,
+          "macro_recall": 0.5757790674603175,
+          "singleton_accuracy": 0.7777777777777778,
+          "total_matches": 8425,
+          "mean_matches_per_entity": 2.10625,
+          "singletons_declared": 765
+        },
+        {
+          "threshold": 0.5,
+          "macro_f05": 0.6997900989390545,
+          "macro_precision": 0.7826273268398266,
+          "macro_recall": 0.5727400793650795,
+          "singleton_accuracy": 0.8076923076923077,
+          "total_matches": 8269,
+          "mean_matches_per_entity": 2.06725,
+          "singletons_declared": 786
+        },
+        {
+          "threshold": 0.52,
+          "macro_f05": 0.7002645420320036,
+          "macro_precision": 0.7840616071428571,
+          "macro_recall": 0.5707644841269844,
+          "singleton_accuracy": 0.811965811965812,
+          "total_matches": 8202,
+          "mean_matches_per_entity": 2.0505,
+          "singletons_declared": 795
+        },
+        {
+          "threshold": 0.55,
+          "macro_f05": 0.7004071130155838,
+          "macro_precision": 0.7861639880952381,
+          "macro_recall": 0.5678433531746038,
+          "singleton_accuracy": 0.8205128205128205,
+          "total_matches": 8110,
+          "mean_matches_per_entity": 2.0275,
+          "singletons_declared": 804
+        },
+        {
+          "threshold": 0.58,
+          "macro_f05": 0.6994768958111386,
+          "macro_precision": 0.7867150793650796,
+          "macro_recall": 0.5637088293650798,
+          "singleton_accuracy": 0.8333333333333334,
+          "total_matches": 8002,
+          "mean_matches_per_entity": 2.0005,
+          "singletons_declared": 820
+        },
+        {
+          "threshold": 0.6,
+          "macro_f05": 0.6997177860302224,
+          "macro_precision": 0.7879010912698414,
+          "macro_recall": 0.5624805555555562,
+          "singleton_accuracy": 0.8504273504273504,
+          "total_matches": 7941,
+          "mean_matches_per_entity": 1.98525,
+          "singletons_declared": 830
+        },
+        {
+          "threshold": 0.62,
+          "macro_f05": 0.6985409554937148,
+          "macro_precision": 0.7881052579365081,
+          "macro_recall": 0.5597251984126991,
+          "singleton_accuracy": 0.8589743589743589,
+          "total_matches": 7867,
+          "mean_matches_per_entity": 1.96675,
+          "singletons_declared": 841
+        },
+        {
+          "threshold": 0.65,
+          "macro_f05": 0.6973704564705705,
+          "macro_precision": 0.7886826388888889,
+          "macro_recall": 0.5554551587301595,
+          "singleton_accuracy": 0.8632478632478633,
+          "total_matches": 7769,
+          "mean_matches_per_entity": 1.94225,
+          "singletons_declared": 852
+        },
+        {
+          "threshold": 0.7,
+          "macro_f05": 0.694881491150372,
+          "macro_precision": 0.7899707341269844,
+          "macro_recall": 0.5469783730158738,
+          "singleton_accuracy": 0.8888888888888888,
+          "total_matches": 7552,
+          "mean_matches_per_entity": 1.888,
+          "singletons_declared": 878
+        },
+        {
+          "threshold": 0.75,
+          "macro_f05": 0.6863961171183531,
+          "macro_precision": 0.7842171626984127,
+          "macro_recall": 0.5347218253968257,
+          "singleton_accuracy": 0.905982905982906,
+          "total_matches": 7311,
+          "mean_matches_per_entity": 1.82775,
+          "singletons_declared": 926
+        },
+        {
+          "threshold": 0.8,
+          "macro_f05": 0.6791058065330842,
+          "macro_precision": 0.7802538690476191,
+          "macro_recall": 0.5223522817460325,
+          "singleton_accuracy": 0.9188034188034188,
+          "total_matches": 7055,
+          "mean_matches_per_entity": 1.76375,
+          "singletons_declared": 966
+        }
+      ]
+    },
+    "LightGBM": {
+      "model_name": "LightGBM",
+      "description": "GOSS Leaf-wise Gradient Boosted Decision Trees",
+      "fit_time_seconds": 4.14,
+      "inf_time_seconds": 0.5002,
+      "inf_latency_us_per_pair": 8.86,
+      "inf_throughput_pairs_sec": 112887.6,
+      "roc_auc": 0.99621,
+      "pr_auc": 0.98071,
+      "logloss": 0.05673,
+      "default_p050": {
+        "macro_f05": 0.72925,
+        "macro_precision": 0.80791,
+        "macro_recall": 0.6047,
+        "singleton_accuracy": 0.81624
+      },
+      "optimal_p": {
+        "threshold": 0.58,
+        "macro_f05": 0.72985,
+        "macro_precision": 0.8185,
+        "macro_recall": 0.58791,
+        "singleton_accuracy": 0.87607
+      },
+      "sweep": [
+        {
+          "threshold": 0.4,
+          "macro_f05": 0.7229154830454907,
+          "macro_precision": 0.7923380952380945,
+          "macro_recall": 0.6154165674603179,
+          "singleton_accuracy": 0.7350427350427351,
+          "total_matches": 9234,
+          "mean_matches_per_entity": 2.3085,
+          "singletons_declared": 608
+        },
+        {
+          "threshold": 0.45,
+          "macro_f05": 0.7269057353046531,
+          "macro_precision": 0.8022402777777773,
+          "macro_recall": 0.6086015873015873,
+          "singleton_accuracy": 0.7735042735042735,
+          "total_matches": 8915,
+          "mean_matches_per_entity": 2.22875,
+          "singletons_declared": 641
+        },
+        {
+          "threshold": 0.5,
+          "macro_f05": 0.7292499708271065,
+          "macro_precision": 0.807913591269841,
+          "macro_recall": 0.6046955357142862,
+          "singleton_accuracy": 0.8162393162393162,
+          "total_matches": 8722,
+          "mean_matches_per_entity": 2.1805,
+          "singletons_declared": 668
+        },
+        {
+          "threshold": 0.52,
+          "macro_f05": 0.7293049400316318,
+          "macro_precision": 0.8095701388888886,
+          "macro_recall": 0.6017633928571431,
+          "singleton_accuracy": 0.8205128205128205,
+          "total_matches": 8636,
+          "mean_matches_per_entity": 2.159,
+          "singletons_declared": 676
+        },
+        {
+          "threshold": 0.55,
+          "macro_f05": 0.7284900069182471,
+          "macro_precision": 0.8156350198412696,
+          "macro_recall": 0.5898779761904762,
+          "singleton_accuracy": 0.8547008547008547,
+          "total_matches": 8270,
+          "mean_matches_per_entity": 2.0675,
+          "singletons_declared": 745
+        },
+        {
+          "threshold": 0.58,
+          "macro_f05": 0.7298512862340656,
+          "macro_precision": 0.8184981150793652,
+          "macro_recall": 0.5879089285714287,
+          "singleton_accuracy": 0.8760683760683761,
+          "total_matches": 8171,
+          "mean_matches_per_entity": 2.04275,
+          "singletons_declared": 759
+        },
+        {
+          "threshold": 0.6,
+          "macro_f05": 0.729526545234916,
+          "macro_precision": 0.8192473214285714,
+          "macro_recall": 0.5861541666666669,
+          "singleton_accuracy": 0.8803418803418803,
+          "total_matches": 8116,
+          "mean_matches_per_entity": 2.029,
+          "singletons_declared": 766
+        },
+        {
+          "threshold": 0.62,
+          "macro_f05": 0.7295085891610413,
+          "macro_precision": 0.8196473214285714,
+          "macro_recall": 0.5852660714285716,
+          "singleton_accuracy": 0.8974358974358975,
+          "total_matches": 8064,
+          "mean_matches_per_entity": 2.016,
+          "singletons_declared": 780
+        },
+        {
+          "threshold": 0.65,
+          "macro_f05": 0.7279875475838148,
+          "macro_precision": 0.8194705357142857,
+          "macro_recall": 0.5816568452380959,
+          "singleton_accuracy": 0.905982905982906,
+          "total_matches": 7968,
+          "mean_matches_per_entity": 1.992,
+          "singletons_declared": 796
+        },
+        {
+          "threshold": 0.7,
+          "macro_f05": 0.7241076200445097,
+          "macro_precision": 0.8171895833333335,
+          "macro_recall": 0.5753175595238099,
+          "singleton_accuracy": 0.9145299145299145,
+          "total_matches": 7833,
+          "mean_matches_per_entity": 1.95825,
+          "singletons_declared": 824
+        },
+        {
+          "threshold": 0.75,
+          "macro_f05": 0.7187802140508833,
+          "macro_precision": 0.8148047619047618,
+          "macro_recall": 0.5662916666666667,
+          "singleton_accuracy": 0.9230769230769231,
+          "total_matches": 7644,
+          "mean_matches_per_entity": 1.911,
+          "singletons_declared": 858
+        },
+        {
+          "threshold": 0.8,
+          "macro_f05": 0.7133148820272585,
+          "macro_precision": 0.8122595238095238,
+          "macro_recall": 0.5568133928571427,
+          "singleton_accuracy": 0.9316239316239316,
+          "total_matches": 7462,
+          "mean_matches_per_entity": 1.8655,
+          "singletons_declared": 887
+        }
+      ]
+    },
+    "XGBoost": {
+      "model_name": "XGBoost",
+      "description": "Histogram Exact Greedy Depth-wise Boosted Trees",
+      "fit_time_seconds": 5.72,
+      "inf_time_seconds": 0.1316,
+      "inf_latency_us_per_pair": 2.33,
+      "inf_throughput_pairs_sec": 429043.3,
+      "roc_auc": 0.99632,
+      "pr_auc": 0.98128,
+      "logloss": 0.05602,
+      "default_p050": {
+        "macro_f05": 0.72908,
+        "macro_precision": 0.80706,
+        "macro_recall": 0.60566,
+        "singleton_accuracy": 0.79487
+      },
+      "optimal_p": {
+        "threshold": 0.62,
+        "macro_f05": 0.73131,
+        "macro_precision": 0.8217,
+        "macro_recall": 0.58677,
+        "singleton_accuracy": 0.90171
+      },
+      "sweep": [
+        {
+          "threshold": 0.4,
+          "macro_f05": 0.7246235400237263,
+          "macro_precision": 0.7946279761904756,
+          "macro_recall": 0.6162168650793655,
+          "singleton_accuracy": 0.7393162393162394,
+          "total_matches": 9213,
+          "mean_matches_per_entity": 2.30325,
+          "singletons_declared": 604
+        },
+        {
+          "threshold": 0.45,
+          "macro_f05": 0.7289930195375018,
+          "macro_precision": 0.8039402777777773,
+          "macro_recall": 0.6107862103174607,
+          "singleton_accuracy": 0.7735042735042735,
+          "total_matches": 8928,
+          "mean_matches_per_entity": 2.232,
+          "singletons_declared": 637
+        },
+        {
+          "threshold": 0.5,
+          "macro_f05": 0.7290839666294009,
+          "macro_precision": 0.8070576388888886,
+          "macro_recall": 0.605663194444445,
+          "singleton_accuracy": 0.7948717948717948,
+          "total_matches": 8747,
+          "mean_matches_per_entity": 2.18675,
+          "singletons_declared": 666
+        },
+        {
+          "threshold": 0.52,
+          "macro_f05": 0.7302883206007408,
+          "macro_precision": 0.8095165674603171,
+          "macro_recall": 0.6046245039682546,
+          "singleton_accuracy": 0.8162393162393162,
+          "total_matches": 8678,
+          "mean_matches_per_entity": 2.1695,
+          "singletons_declared": 675
+        },
+        {
+          "threshold": 0.55,
+          "macro_f05": 0.729305430685986,
+          "macro_precision": 0.8126217261904761,
+          "macro_recall": 0.5963911706349205,
+          "singleton_accuracy": 0.8461538461538461,
+          "total_matches": 8430,
+          "mean_matches_per_entity": 2.1075,
+          "singletons_declared": 725
+        },
+        {
+          "threshold": 0.58,
+          "macro_f05": 0.7310624375450326,
+          "macro_precision": 0.8194223214285714,
+          "macro_recall": 0.5899479166666669,
+          "singleton_accuracy": 0.8803418803418803,
+          "total_matches": 8191,
+          "mean_matches_per_entity": 2.04775,
+          "singletons_declared": 761
+        },
+        {
+          "threshold": 0.6,
+          "macro_f05": 0.7309324328947772,
+          "macro_precision": 0.8204514880952382,
+          "macro_recall": 0.5880375000000002,
+          "singleton_accuracy": 0.8888888888888888,
+          "total_matches": 8132,
+          "mean_matches_per_entity": 2.033,
+          "singletons_declared": 768
+        },
+        {
+          "threshold": 0.62,
+          "macro_f05": 0.7313084066834612,
+          "macro_precision": 0.8216997023809525,
+          "macro_recall": 0.5867723214285716,
+          "singleton_accuracy": 0.9017094017094017,
+          "total_matches": 8075,
+          "mean_matches_per_entity": 2.01875,
+          "singletons_declared": 777
+        },
+        {
+          "threshold": 0.65,
+          "macro_f05": 0.7297977279596466,
+          "macro_precision": 0.8212017857142856,
+          "macro_recall": 0.5833342261904763,
+          "singleton_accuracy": 0.905982905982906,
+          "total_matches": 7994,
+          "mean_matches_per_entity": 1.9985,
+          "singletons_declared": 791
+        },
+        {
+          "threshold": 0.7,
+          "macro_f05": 0.7245757287517873,
+          "macro_precision": 0.8181107142857144,
+          "macro_recall": 0.574997916666667,
+          "singleton_accuracy": 0.9188034188034188,
+          "total_matches": 7821,
+          "mean_matches_per_entity": 1.95525,
+          "singletons_declared": 826
+        },
+        {
+          "threshold": 0.75,
+          "macro_f05": 0.7194227101127966,
+          "macro_precision": 0.8159863095238092,
+          "macro_recall": 0.5664428571428577,
+          "singleton_accuracy": 0.9273504273504274,
+          "total_matches": 7647,
+          "mean_matches_per_entity": 1.91175,
+          "singletons_declared": 855
+        },
+        {
+          "threshold": 0.8,
+          "macro_f05": 0.7124013198166869,
+          "macro_precision": 0.8113035714285712,
+          "macro_recall": 0.5562092261904762,
+          "singleton_accuracy": 0.9316239316239316,
+          "total_matches": 7455,
+          "mean_matches_per_entity": 1.86375,
+          "singletons_declared": 891
+        }
+      ]
+    },
+    "CatBoost": {
+      "model_name": "CatBoost",
+      "description": "Symmetric Oblivious Decision Trees (Ordered Boosting)",
+      "fit_time_seconds": 13.07,
+      "inf_time_seconds": 0.021,
+      "inf_latency_us_per_pair": 0.37,
+      "inf_throughput_pairs_sec": 2694260.2,
+      "roc_auc": 0.99599,
+      "pr_auc": 0.9796,
+      "logloss": 0.05843,
+      "default_p050": {
+        "macro_f05": 0.72658,
+        "macro_precision": 0.80505,
+        "macro_recall": 0.60241,
+        "singleton_accuracy": 0.7906
+      },
+      "optimal_p": {
+        "threshold": 0.52,
+        "macro_f05": 0.72686,
+        "macro_precision": 0.80677,
+        "macro_recall": 0.59993,
+        "singleton_accuracy": 0.80769
+      },
+      "sweep": [
+        {
+          "threshold": 0.4,
+          "macro_f05": 0.7203172084744415,
+          "macro_precision": 0.7892531746031738,
+          "macro_recall": 0.6137346230158733,
+          "singleton_accuracy": 0.7136752136752137,
+          "total_matches": 9248,
+          "mean_matches_per_entity": 2.312,
+          "singletons_declared": 600
+        },
+        {
+          "threshold": 0.45,
+          "macro_f05": 0.7221987141585556,
+          "macro_precision": 0.7948163690476185,
+          "macro_recall": 0.6087411706349211,
+          "singleton_accuracy": 0.7222222222222222,
+          "total_matches": 9061,
+          "mean_matches_per_entity": 2.26525,
+          "singletons_declared": 613
+        },
+        {
+          "threshold": 0.5,
+          "macro_f05": 0.7265780989998274,
+          "macro_precision": 0.8050496031746026,
+          "macro_recall": 0.6024123015873019,
+          "singleton_accuracy": 0.7905982905982906,
+          "total_matches": 8727,
+          "mean_matches_per_entity": 2.18175,
+          "singletons_declared": 667
+        },
+        {
+          "threshold": 0.52,
+          "macro_f05": 0.726858633211316,
+          "macro_precision": 0.8067683531746027,
+          "macro_recall": 0.5999322420634924,
+          "singleton_accuracy": 0.8076923076923077,
+          "total_matches": 8632,
+          "mean_matches_per_entity": 2.158,
+          "singletons_declared": 681
+        },
+        {
+          "threshold": 0.55,
+          "macro_f05": 0.7266773942235473,
+          "macro_precision": 0.8135151785714283,
+          "macro_recall": 0.5886901785714287,
+          "singleton_accuracy": 0.8547008547008547,
+          "total_matches": 8252,
+          "mean_matches_per_entity": 2.063,
+          "singletons_declared": 759
+        },
+        {
+          "threshold": 0.58,
+          "macro_f05": 0.7264195072759051,
+          "macro_precision": 0.8152994047619043,
+          "macro_recall": 0.5843392857142857,
+          "singleton_accuracy": 0.8675213675213675,
+          "total_matches": 8135,
+          "mean_matches_per_entity": 2.03375,
+          "singletons_declared": 775
+        },
+        {
+          "threshold": 0.6,
+          "macro_f05": 0.7260931090659439,
+          "macro_precision": 0.8159267857142855,
+          "macro_recall": 0.5827547619047619,
+          "singleton_accuracy": 0.8846153846153846,
+          "total_matches": 8066,
+          "mean_matches_per_entity": 2.0165,
+          "singletons_declared": 787
+        },
+        {
+          "threshold": 0.62,
+          "macro_f05": 0.7266263227479489,
+          "macro_precision": 0.8174874999999997,
+          "macro_recall": 0.5812999999999999,
+          "singleton_accuracy": 0.8931623931623932,
+          "total_matches": 8011,
+          "mean_matches_per_entity": 2.00275,
+          "singletons_declared": 792
+        },
+        {
+          "threshold": 0.65,
+          "macro_f05": 0.7257751443939187,
+          "macro_precision": 0.8178749999999998,
+          "macro_recall": 0.5787163690476194,
+          "singleton_accuracy": 0.9102564102564102,
+          "total_matches": 7923,
+          "mean_matches_per_entity": 1.98075,
+          "singletons_declared": 811
+        },
+        {
+          "threshold": 0.7,
+          "macro_f05": 0.7219715810236376,
+          "macro_precision": 0.8164654761904759,
+          "macro_recall": 0.5721148809523813,
+          "singleton_accuracy": 0.9273504273504274,
+          "total_matches": 7769,
+          "mean_matches_per_entity": 1.94225,
+          "singletons_declared": 838
+        },
+        {
+          "threshold": 0.75,
+          "macro_f05": 0.7163347594030502,
+          "macro_precision": 0.8126946428571425,
+          "macro_recall": 0.5634860119047621,
+          "singleton_accuracy": 0.9273504273504274,
+          "total_matches": 7586,
+          "mean_matches_per_entity": 1.8965,
+          "singletons_declared": 873
+        },
+        {
+          "threshold": 0.8,
+          "macro_f05": 0.7106227114381023,
+          "macro_precision": 0.810232738095238,
+          "macro_recall": 0.5530976190476188,
+          "singleton_accuracy": 0.9401709401709402,
+          "total_matches": 7383,
+          "mean_matches_per_entity": 1.84575,
+          "singletons_declared": 903
+        }
+      ]
+    }
+  },
+  "ensemble_preview": {
+    "model_name": "Ensemble (LGBM + CatBoost + XGBoost)",
+    "description": "Equal-weight Soft Voting of 3 Gradient Boosted Tree Families",
+    "roc_auc": 0.99627,
+    "pr_auc": 0.981,
+    "default_p050": {
+      "macro_f05": 0.72845,
+      "macro_precision": 0.80721,
+      "macro_recall": 0.60395,
+      "singleton_accuracy": 0.79915
+    },
+    "optimal_p": {
+      "threshold": 0.62,
+      "macro_f05": 0.72986,
+      "macro_precision": 0.82052,
+      "macro_recall": 0.5845,
+      "singleton_accuracy": 0.89316
+    }
+  },
+  "correlation_matrix": {
+    "Logistic Regression": {
+      "Logistic Regression": 1.0,
+      "LightGBM": 0.9693,
+      "XGBoost": 0.9683,
+      "CatBoost": 0.973
+    },
+    "LightGBM": {
+      "Logistic Regression": 0.9693,
+      "LightGBM": 1.0,
+      "XGBoost": 0.9988,
+      "CatBoost": 0.9976
+    },
+    "XGBoost": {
+      "Logistic Regression": 0.9683,
+      "LightGBM": 0.9988,
+      "XGBoost": 1.0,
+      "CatBoost": 0.9974
+    },
+    "CatBoost": {
+      "Logistic Regression": 0.973,
+      "LightGBM": 0.9976,
+      "XGBoost": 0.9974,
+      "CatBoost": 1.0
+    }
+  }
+}

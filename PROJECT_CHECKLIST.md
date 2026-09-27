@@ -59,6 +59,7 @@
 - [x] Gradient boosting experiment (LightGBM 350-tree in `src/models/pairwise_classifier.py`)
 - [x] Hard negatives (Extracted from Phase 4 multi-pass blocking, 5.35:1 negative ratio)
 - [x] Calibration/threshold analysis (Calibrated for Macro F0.5 on unseen S1 entities)
+- [x] Architecture comparison (LightGBM vs XGBoost vs CatBoost vs Logistic Regression in `scripts/compare_models.py`)
 
 ## Optimization
 - [x] Threshold optimization (Sweep $p \in [0.40, 0.95]$, optimal $p^* = 0.60$, Macro $F_{0.5} = 0.72953$)
@@ -86,7 +87,7 @@
 
 ---
 
-### Status Summary (Phase 12 Advanced Retrieval Completion)
+### Status Summary (Phase 13 Model Architecture Comparison Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -101,11 +102,12 @@
   * Phase 10 Threshold Optimization & Adaptive Boundary Calibration (`src/models/threshold_calibrator.py`, Macro $F_{0.5} = \mathbf{0.733923}$, `reports/PHASE_10_THRESHOLD_OPTIMIZATION.md`).
   * Phase 11 Comprehensive Error Analysis & Diagnostics (`src/evaluation/error_analyzer.py`, `reports/PHASE_11_ERROR_ANALYSIS.md`).
   * Phase 12 Advanced Retrieval & Dropout Recovery (`src/blocking/advanced_retriever.py`, Candidate Recall = $\mathbf{70.06\%}$, `+861` recovered matches, `reports/PHASE_12_ADVANCED_RETRIEVAL.md`).
+  * Phase 13 Model Architecture Comparison (`scripts/compare_models.py`, XGBoost $F_{0.5} = \mathbf{0.731308}$, LightGBM $F_{0.5} = \mathbf{0.729851}$, CatBoost $F_{0.5} = \mathbf{0.726859}$, `reports/PHASE_13_MODEL_COMPARISON.md`).
 * **Not completed**:
-  * Stage IV Diagnostics & Iterative Improvement (Phase 13: Model Comparison; Phase 14: Ensembling; Phase 15: Final Pipeline Retest).
+  * Stage IV Diagnostics & Iterative Improvement (Phase 14: Ensembling & Blending; Phase 15: Final Pipeline Retest & Submission Regeneration).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 13 — Model Comparison (LightGBM vs. CatBoost / XGBoost / Baselines).
+  * Phase 14 — Ensembling & Blending (Rank Averaging, Calibrated Probability Blending, Error-Complementary Stacking).
 
 
 

@@ -20,6 +20,7 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-010* | 2026-09-27 | Threshold Optimization & Adaptive Boundaries | 0.633817 | 14.20 | 0.733923 | 0.829314 | 0.579410 | 11.2s | 0.6GB | **RECORD SCORE (F0.5=0.7339)** |
 | *EXP-011* | 2026-09-27 | Error Diagnostics & Forensic Autopsy | 0.637907 | 14.12 | `N/A` (Diagnostic) | 0.950200 (pw) | 0.565800 | 26.4s | 1.2GB | **BOTTLENECK FOUND (83.4% Dropouts)** |
 | *EXP-012* | 2026-09-27 | Advanced Retrieval (Char 4-gram Inverted Index) | 0.700649 | 14.80 | `N/A` (Retrieval) | `N/A` | 0.700649 | 21.0s | 1.4GB | **RECALL LIFT (+6.27% abs / +9.84% rel)** |
+| *EXP-013* | 2026-09-27 | Model Comparison (LGBM vs XGBoost vs CatBoost vs LogReg) | 0.637907 | 14.12 | 0.731308 (XGB) | 0.821700 | 0.586800 | 95.1s | 1.3GB | **BENCHMARK COMPLETE (XGB/LGBM Top)** |
 
 
 ---
@@ -302,5 +303,19 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Candidate Recall (Pairs Completeness)**: Soared from **`63.79%`** to **`70.06%`** (**`+6.27%` absolute lift**, **`+9.84%` relative lift**).
   * **Model Conversion**: **`682` of the 861 recovered matches** scored $P(\text{match}) \ge 0.50$ when evaluated by the LightGBM classifier, directly converting into high-precision true positives.
   * **Candidate Parsimony**: Mean candidates per S1 entity remained highly parsimonious at **`14.80`** (baseline `14.12`), with maximum candidates strictly capped at **`20`** ($0.00\%$ exceeding 20).
-  * **Ultra-Fast Sparse BLAS Scalability**: Sparse matrix dot-product retrieval over 58,627 candidate records executed in **`2.89s`**; total script runtime was **`21.03s`** (Peak RAM **`1.4 GB RSS`**).
+  * **Resource Profile**: Total execution wall time **21.03s** (Peak RAM **`1.4 GB RSS`**).
 * **Decision**: **ADVANCED RETRIEVER INTEGRATED & ACCEPTED**. Successfully breached the 63.38% candidate recall ceiling to achieve 70.06% recall while preserving candidate parsimony. Ready for Phase 13 (Model Comparison: LightGBM vs. CatBoost / XGBoost / Baselines).
+
+### EXP-013: Phase 13 — Model Architecture Comparison (LightGBM vs. XGBoost vs. CatBoost vs. Linear Baseline)
+* **Date**: September 27, 2026
+* **Objective**: Systematically benchmark 4 distinct model families (regularized linear model, GOSS leaf-wise trees, histogram greedy depth-wise trees, and symmetric oblivious trees) under strictly identical 20-feature representations and entity-stratified validation partitions.
+* **Modules**: [`scripts/compare_models.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/compare_models.py), [`reports/PHASE_13_MODEL_COMPARISON.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_13_MODEL_COMPARISON.md), [`models/comparison/model_comparison_results.json`](file:///c:/Users/DELL/Downloads/Amazon_ML/models/comparison/model_comparison_results.json)
+* **Target Universe**: 4,000 Unseen Validation S1 Entities (56,469 Candidate Pairs) | 16,000 Training S1 Entities (227,611 Pairs)
+* **Key Measured Findings Across Architectures**:
+  * **Logistic Regression Baseline (L2 Regularized)**: PR-AUC **`0.95766`** | ROC-AUC **`0.99138`** | Optimal $p^*=0.55$: Macro $F_{0.5} = \mathbf{0.700407}$ (Prec: 78.62%, Rec: 56.78%, Singleton Acc: 82.05%) | Fit: **0.77s**. Demonstrates that feature engineering accounts for the bulk of classification capability.
+  * **LightGBM (Baseline Champion)**: PR-AUC **`0.98071`** | ROC-AUC **`0.99621`** | Optimal $p^*=0.58$: Macro $F_{0.5} = \mathbf{0.729851}$ (Prec: 81.85%, Rec: 58.79%, Singleton Acc: 87.61%) | Fit: **4.14s** | Latency: 8.9 µs/pair.
+  * **XGBoost (Contender)**: PR-AUC **`0.98128`** (Highest) | ROC-AUC **`0.99632`** (Highest) | Optimal $p^*=0.62$: Macro $F_{0.5} = \mathbf{0.731308}$ (Prec: **`82.17%`**, Rec: 58.68%, Singleton Acc: **`90.17%`**) | Fit: **5.72s** | Latency: 2.3 µs/pair. Edges LightGBM by +0.00146 Macro F0.5 with peak singleton protection.
+  * **CatBoost (Contender)**: PR-AUC **`0.97960`** | ROC-AUC **`0.99599`** | Optimal $p^*=0.52$: Macro $F_{0.5} = \mathbf{0.726859}$ (Prec: 80.68%, Rec: **`59.99%`**, Singleton Acc: 80.77%) | Fit: **13.07s** | Latency: 0.4 µs/pair. Yields highest raw recall among tree models.
+  * **Inter-Model Correlation**: Exceptionally high Pearson correlation ($r = 0.9988$ between LightGBM and XGBoost, $r = 0.9976$ between LightGBM and CatBoost). Confirms consensus across tree algorithms.
+* **Resource Profile**: Total benchmark runtime **95.05 seconds (1.58 minutes)**, Peak RAM **1.3 GB RSS**.
+* **Decision**: **BENCHMARK COMPLETED & ARCHITECTURES VALIDATED**. Both XGBoost and LightGBM established as top-tier candidate scorers; CatBoost confirmed as high-recall complement. Ready for Phase 14 (Ensembling & Blending).
