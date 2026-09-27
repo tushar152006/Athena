@@ -273,8 +273,21 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Adaptive Margin Gap Breakthrough**: Base threshold $0.50$ with margin gap $\delta = 0.30$ ($p_1 - p_i \le 0.30$) achieved **Macro $F_{0.5} = \mathbf{0.733923}$** (New Record Score), driving Macro Precision to **`82.93%`**.
   * **Global Fixed Threshold**: Fine-grained sweep revealed $p^* = 0.58$ as the optimal single threshold, achieving **Macro $F_{0.5} = \mathbf{0.729851}$** (Precision = $81.85\%$, Recall = $58.79\%$, Singleton Accuracy = $87.61\%$).
   * **Parsimony Alignment**: Average emitted matches per S1 entity is **`2.02–2.04`**, cleanly matching true entity cardinality ($3.46$ matches per non-singleton entity).
-* **Resource Profile**: Total execution wall time **30.25 seconds**, Peak RAM **1.1 GB RSS**.
 * **Decision**: **CALIBRATION CONFIGURATION PERSISTED**. Adaptive margin gap and $p^* = 0.58$ adopted as primary scoring configurations. Ready for Stage IV Diagnostics & Iterative Improvement (Phase 11: Error Analysis).
+
+### EXP-011: Phase 11 — Error Diagnostics & Forensic Autopsy
+* **Date**: September 27, 2026
+* **Objective**: Perform exhaustive autopsy of remaining errors on 4,000 unseen validation S1 entities across both fixed ($p^* = 0.58$) and adaptive margin ($p_{\text{base}}=0.50, \delta=0.30$) decision boundaries.
+* **Modules**: [`src/evaluation/error_analyzer.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/evaluation/error_analyzer.py), [`scripts/run_error_analysis.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_error_analysis.py), [`reports/PHASE_11_ERROR_ANALYSIS.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_11_ERROR_ANALYSIS.md)
+* **Key Measured Findings on 4,000 Unseen Validation Entities (56,469 Candidate Pairs)**:
+  * **The False Negative Bottleneck**: False Negatives ($5,959$) outnumber False Positives ($407$) by **`14.6 : 1`**.
+  * **Blocking Dropouts Dominate FNs**: **`83.4%`** of all False Negatives ($4,969$ pairs) are due to candidate generation dropouts (never retrieved during blocking), whereas only **`16.6%`** ($990$ pairs) are model scoring misses.
+  * **Precision is Exceptionally High**: The LightGBM classifier achieves **`95.0%`** pairwise precision on the candidates it evaluates. False positives are tightly confined to Brand-Subset collisions ($40.5\%$, 165 cases) and Franchise look-alikes ($28.5\%$, 116 cases).
+  * **Singleton Detection**: $87.6\%$ of ground-truth singletons are correctly preserved with only $29$ over-merged errors.
+  * **Strategic Directives**: The model scoring layer is near-optimal; the single highest-ROI opportunity to push Macro $F_{0.5} > 0.80$ is expanding blocking recall via Phase 12 Advanced Retrieval (Character 4-gram TF-IDF / BM25 Inverted Index or dense bi-encoder embeddings).
+* **Resource Profile**: Total execution wall time **26.4 seconds**, Peak RAM **1.2 GB RSS**.
+* **Decision**: **DIAGNOSTIC CENSUS ACCEPTED**. Phase 12 Advanced Retrieval confirmed as primary performance driver. Ready for Phase 12 (Advanced Retrieval / Embeddings).
+
 
 
 

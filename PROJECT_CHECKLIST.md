@@ -63,9 +63,9 @@
 ## Optimization
 - [x] Threshold optimization (Sweep $p \in [0.40, 0.95]$, optimal $p^* = 0.60$, Macro $F_{0.5} = 0.72953$)
 - [x] Singleton analysis & guard threshold (`src/clustering/graph_clusterer.py`, guard $p_{\text{singleton}} = 0.60$, accuracy $85.66\%$)
-- [ ] Error analysis (FP, FN, Singleton FP, Blocking misses)
-- [ ] False-positive analysis
-- [ ] False-negative analysis
+- [x] Error analysis (FP, FN, Singleton FP, Blocking misses in `reports/PHASE_11_ERROR_ANALYSIS.md`)
+- [x] False-positive analysis (Brand-subset collisions 40.5%, franchise 28.5%, spelling 14.7%)
+- [x] False-negative analysis (Blocking dropouts 83.4%, scoring misses 16.6%)
 
 ## Advanced
 - [ ] Retrieval experiment (TF-IDF / BM25 inverted index)
@@ -86,7 +86,7 @@
 
 ---
 
-### Status Summary (Phase 10 Threshold Optimization Completion)
+### Status Summary (Phase 11 Error Analysis Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -99,11 +99,13 @@
   * Phase 8 End-to-End Pipeline Integration, Test Set Inference & Submission Packaging (`reports/PHASE_08_FINAL_INTEGRATION.md`, `submission.zip` 157.66 MB).
   * Phase 9 Hard Negative Mining & Model Retraining (`src/models/hard_negative_miner.py`, `models/lightgbm_hard_negatives.txt`, `reports/PHASE_09_HARD_NEGATIVE_MINING.md`).
   * Phase 10 Threshold Optimization & Adaptive Boundary Calibration (`src/models/threshold_calibrator.py`, Macro $F_{0.5} = \mathbf{0.733923}$, `reports/PHASE_10_THRESHOLD_OPTIMIZATION.md`).
+  * Phase 11 Comprehensive Error Analysis & Diagnostics (`src/evaluation/error_analyzer.py`, `reports/PHASE_11_ERROR_ANALYSIS.md`).
 * **Not completed**:
-  * Stage IV Diagnostics & Iterative Improvement (Phase 11: Error Analysis; Phase 12: Advanced Retrieval; Phase 13: Model Comparison; Phase 14: Ensembling).
+  * Stage IV Diagnostics & Iterative Improvement (Phase 12: Advanced Retrieval; Phase 13: Model Comparison; Phase 14: Ensembling).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 11 — Error Analysis (FP, FN, Singleton misses, Blocking dropouts).
+  * Phase 12 — Advanced Retrieval (Inverted Index / TF-IDF / Character 4-gram retrieval to recover 83.4% blocking dropouts).
+
 
 
 
