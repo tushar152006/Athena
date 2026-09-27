@@ -1,0 +1,25 @@
+{
+  "optimal_threshold": 0.55,
+  "feature_names": [
+    "name_exact_clean",
+    "name_jaro_winkler",
+    "name_token_sort_ratio",
+    "name_token_set_ratio",
+    "name_levenshtein_ratio",
+    "name_qgram_jaccard",
+    "name_first_token_match",
+    "name_len_diff",
+    "name_len_ratio",
+    "addr_available",
+    "addr_num_match",
+    "addr_postal_match",
+    "addr_token_sort_ratio",
+    "addr_token_set_ratio",
+    "addr_qgram_jaccard",
+    "addr_shared_words_count",
+    "franchise_collision_hazard",
+    "multi_tenant_hazard",
+    "blocking_consensus_score",
+    "candidate_rank_in_entity"
+  ]
+}
