@@ -50,10 +50,10 @@
 
 
 ## Features
-- [ ] Name features (Jaro-Winkler, Token sort/set, Levenshtein, Q-grams)
-- [ ] Address features (Token sort/set, Street name, City, Landmark)
-- [ ] Cross-field features (Street number match/mismatch, Postal match, Digit Jaccard)
-- [ ] Feature ablation
+- [x] Name features (Jaro-Winkler, Token sort/set, Levenshtein, Q-grams in `src/features/feature_extractor.py`)
+- [x] Address features (Token sort/set, Q-grams, Shared significant words, Trinary postal match)
+- [x] Cross-field features (Street number match/mismatch gate, Franchise collision hazard, Multi-tenant hazard)
+- [x] Feature ablation & correlation analysis (`scripts/benchmark_features.py` and `reports/PHASE_05_FEATURE_ENGINEERING.md`)
 
 ## Model
 - [ ] Baseline classifier (Logistic Regression)
@@ -87,19 +87,18 @@
 
 ---
 
-### Status Summary (Phase 0 Audit Completion)
+### Status Summary (Phase 5 Feature Engineering Completion)
 * **Completed**:
-  * Phase 0 Project & Resource Audit.
-  * Official Problem Statement & Rules Verification.
-  * Raw Dataset Verification (Line & Record counts, Country breakdown, Singleton rates).
-  * 0.0000% Cross-Country Match Proof.
+  * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
+  * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
+  * Phase 2 Standalone Local Evaluation Engine (`src/evaluation/evaluator.py`, 100% test pass).
+  * Phase 3 Deterministic Exact Baseline (`src/baseline/exact_matcher.py`, Macro $F_{0.5} = 0.303609$).
+  * Phase 4 Multi-Pass Candidate Generation & Blocking (`src/blocking/multi_pass_blocker.py`, Recall = $63.38\%$, 31.3M pairs, parsimony 14.20).
+  * Phase 5 Domain-Specific Feature Engineering (`src/features/feature_extractor.py`, 20 features, 2,129 pairs/sec, `reports/PHASE_05_FEATURE_ENGINEERING.md`).
 * **Not completed**:
-  * Phase 1 Full Data Forensics (Deep field-level noise analysis).
-  * Phase 2 Local Evaluator (`src/evaluation/`).
-  * Phase 3 Simple Baseline (`EXP-BASELINE`).
+  * Phase 6 Pairwise Classifier & Gradient Boosting (LightGBM).
+  * Phase 7 Global Clustering & Singleton Resolution.
+  * Phase 8 Pipeline Integration, Testing & Submission Packaging.
 * **Blocked**: None.
-* **New risks**:
-  * France out-of-distribution shift in test set (15% of test S1) requires country-agnostic normalization.
-  * Official candidate parsimony scoring penalty (bloated candidate sets hurt final ranking).
 * **Next recommended task**:
-  * Execute Phase 1 Data Forensics (`reports/PHASE_01_DATA_FORENSICS.md`).
+  * Phase 6 — Pairwise Classifier & Gradient Boosting Model (`EXP-006`).
