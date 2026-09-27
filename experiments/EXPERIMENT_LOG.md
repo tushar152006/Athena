@@ -264,6 +264,19 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 * **Key Findings**: Negative distribution oversampling shifts model probability calibration downward to $p^* = 0.55$, where it yields higher recall (+0.67%) with strong precision preservation. Confirms Phase 5 feature design (`franchise_collision_hazard`) is already robust.
 * **Decision**: **HARD NEGATIVE RETRAINED MODEL ACCEPTED**. Ready for Stage III Phase 10 Threshold Optimization & Asymmetric Calibration.
 
+### EXP-010: Phase 10 — Threshold Optimization (F0.5 Precision-Bias Calibration & Adaptive Boundaries)
+* **Date**: September 27, 2026
+* **Objective**: Calibrate global decision thresholds and entity-level adaptive confidence margins to maximally exploit the asymmetric 2:1 Precision:Recall weighting of Macro $F_{0.5}$.
+* **Modules**: [`src/models/threshold_calibrator.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/models/threshold_calibrator.py), [`scripts/calibrate_thresholds.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/calibrate_thresholds.py), [`reports/PHASE_10_THRESHOLD_OPTIMIZATION.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_10_THRESHOLD_OPTIMIZATION.md)
+* **Config Artifact**: [`models/optimal_threshold_config.json`](file:///c:/Users/DELL/Downloads/Amazon_ML/models/optimal_threshold_config.json)
+* **Key Measured Findings on 4,000 Unseen Validation Entities (56,469 Candidate Pairs)**:
+  * **Adaptive Margin Gap Breakthrough**: Base threshold $0.50$ with margin gap $\delta = 0.30$ ($p_1 - p_i \le 0.30$) achieved **Macro $F_{0.5} = \mathbf{0.733923}$** (New Record Score), driving Macro Precision to **`82.93%`**.
+  * **Global Fixed Threshold**: Fine-grained sweep revealed $p^* = 0.58$ as the optimal single threshold, achieving **Macro $F_{0.5} = \mathbf{0.729851}$** (Precision = $81.85\%$, Recall = $58.79\%$, Singleton Accuracy = $87.61\%$).
+  * **Parsimony Alignment**: Average emitted matches per S1 entity is **`2.02–2.04`**, cleanly matching true entity cardinality ($3.46$ matches per non-singleton entity).
+* **Resource Profile**: Total execution wall time **30.25 seconds**, Peak RAM **1.1 GB RSS**.
+* **Decision**: **CALIBRATION CONFIGURATION PERSISTED**. Adaptive margin gap and $p^* = 0.58$ adopted as primary scoring configurations. Ready for Stage IV Diagnostics & Iterative Improvement (Phase 11: Error Analysis).
+
+
 
 
 

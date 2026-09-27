@@ -1,0 +1,17 @@
+{
+  "recommended_model": "lightgbm_pairwise",
+  "model_file": "lightgbm_pairwise.txt",
+  "calibration_type": "global_grid_search",
+  "optimal_threshold": 0.58,
+  "optimal_macro_f05": 0.7298512862340648,
+  "macro_precision": 0.8184981150793648,
+  "macro_recall": 0.5879089285714278,
+  "singleton_accuracy": 0.8760683760683761,
+  "mean_matches_per_entity": 2.04275,
+  "singletons_declared": 759,
+  "adaptive_margin_alternative": {
+    "base_threshold": 0.5,
+    "margin_delta": 0.3,
+    "macro_f05": 0.7339231361954549
+  }
+}

@@ -86,7 +86,7 @@
 
 ---
 
-### Status Summary (Phase 9 Hard Negative Mining Completion)
+### Status Summary (Phase 10 Threshold Optimization Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -98,10 +98,12 @@
   * Phase 7 Global Graph Clustering & Singleton Resolution (`src/clustering/graph_clusterer.py`, Macro $F_{0.5} = \mathbf{0.722420}$, megacluster suppression $\le 11$, `reports/PHASE_07_CLUSTERING.md`).
   * Phase 8 End-to-End Pipeline Integration, Test Set Inference & Submission Packaging (`reports/PHASE_08_FINAL_INTEGRATION.md`, `submission.zip` 157.66 MB).
   * Phase 9 Hard Negative Mining & Model Retraining (`src/models/hard_negative_miner.py`, `models/lightgbm_hard_negatives.txt`, `reports/PHASE_09_HARD_NEGATIVE_MINING.md`).
+  * Phase 10 Threshold Optimization & Adaptive Boundary Calibration (`src/models/threshold_calibrator.py`, Macro $F_{0.5} = \mathbf{0.733923}$, `reports/PHASE_10_THRESHOLD_OPTIMIZATION.md`).
 * **Not completed**:
-  * Iterative improvements (Stage III Phase 10: Threshold Optimization & Asymmetric Cost-Sensitive Calibration; Stage IV: Diagnostics).
+  * Stage IV Diagnostics & Iterative Improvement (Phase 11: Error Analysis; Phase 12: Advanced Retrieval; Phase 13: Model Comparison; Phase 14: Ensembling).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 10 — Threshold Optimization (F0.5 precision-bias calibration: $p^* \ge 0.80$ / entity-adaptive thresholding).
+  * Phase 11 — Error Analysis (FP, FN, Singleton misses, Blocking dropouts).
+
 
 
