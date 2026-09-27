@@ -84,7 +84,8 @@ def package_submission(project_root: Path) -> Path:
     # Write README.md for code
     readme_content = (
         "# Amazon ML Challenge 2026: Business Entity Resolution\n\n"
-        "## Team Athena\n\n"
+        "## Team VENUS\n"
+        "**Team Members:** Tushar Burla, Bipanchi Kalita, Arpit Gupta\n\n"
         "### Overview\n"
         "This package contains the complete reproducible source code for the entity resolution pipeline.\n\n"
         "### Pipeline Architecture\n"
