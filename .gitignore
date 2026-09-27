@@ -1,0 +1,18 @@
+# Datasets (large files > 100MB cannot be pushed to GitHub)
+student_resource/dataset/
+dataset/
+*.tsv
+
+# OS and Temp files
+.DS_Store
+__MACOSX/
+*.tmp
+*.log
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
