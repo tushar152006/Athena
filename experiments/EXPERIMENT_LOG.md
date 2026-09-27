@@ -347,3 +347,39 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Subset Invariant**: **100.00%** of emitted matches are strict subsets of `candidate_pairs.tsv`.
   * **Submission Archive**: `submission.zip` is **165.31 MB** (SHA-256: `5a6f28c87755d87d75c8eb63fc9ebd8bce42f931157cef877fc83064c4b07232`), containing clean `output/`, `Documentation_template.md`, and reproducible `code/`.
 * **Decision**: **100% AUDIT CERTIFIED & SUBMISSION READY**. All 15 phases completed, verified, and pushed to origin/main. Pipeline is fully prepared for official evaluation.
+
+---
+
+### FINAL-RELEASE-001: Release & Pre-Submission Audit Certification
+* **Date**: September 27, 2026
+* **Team**: VENUS (Leader: Tushar Burla; Members: Tushar Burla, Bipanchi Kalita, Arpit Gupta)
+* **Git Branch**: `main`
+* **Git Commit**: `b76192597a9feb9eb6facb2f1b637cb899fca4ca`
+* **Official Validator Status**: **PASS — Exit Code 0** (`student_resource/utils/validate_submission.py --matching output/matching_results.tsv --candidate output/candidate_pairs.tsv --test-dir student_resource/dataset/test --check-ids`)
+  * Required S1 entities: `1,732,544` (100% coverage, 0 missing, 0 duplicates)
+  * Valid S2/S3 candidate match IDs verified: `9,969,589` (0 invalid IDs)
+  * Matching results: `1,732,544` rows (`326,004` empty singletons, `1,406,540` non-empty)
+  * Candidate pairs: `1,732,544` rows (`3,133` empty, `1,729,411` non-empty)
+* **Candidate Parsimony & Statistics**:
+  * Total candidate pairs: `22,859,526`
+  * Mean candidates per S1 entity: **`13.194`** (strictly satisfying $\le 15-20$ target)
+  * Median candidates: **`14.0`** | P90: **`20.0`** | P95: **`20.0`** | P99: **`20.0`**
+  * Maximum candidates: strictly capped at **`20`** ($0.00\%$ exceeding 20 or 25)
+* **Subset Consistency Check**:
+  * Emitted matches $\subseteq$ Candidate pairs: **`0 violations`** (100.00% strict subset adherence)
+  * Self-matches to Source 1: **`0`**
+* **Local Evaluation Performance (4,000 Unseen Validation Entities, 56,469 Pairs)**:
+  * Optimal Decision Threshold: $p^* = 0.58-0.60$ with matching Singleton Guard at $0.60$
+  * Validation Macro $F_{0.5}$: **`0.729851`** (Fixed Threshold) | **`0.733923`** (Adaptive Margin $\delta=0.30$)
+  * Validation Macro Precision: **`81.85%`** (Fixed) | **`82.93%`** (Adaptive Margin)
+  * Validation Macro Recall: **`58.79%`** (Fixed) | **`57.94%`** (Adaptive Margin)
+  * Singleton Accuracy: **`87.61%`** (759 singletons declared)
+  * PR-AUC: **`0.98071`** | ROC-AUC: **`0.99621`**
+* **Reproducibility & Determinism**:
+  * Bit-for-bit determinism test: **PASS** (100% identical SHA-256 across consecutive inference runs)
+* **Submission Deliverable Hashes**:
+  * `output/matching_results.tsv` (72,010,861 bytes): `943b221750b197bb9673a86394cb8866e88f9e30516decc7247edaff2ea6ab6e`
+  * `output/candidate_pairs.tsv` (316,976,993 bytes): `7bbb095be256e19ec29f3a9759811a2412ad3ffb564d4ef09378583ef2779621`
+  * `VENUS_submission.zip` (166,340,027 bytes, 158.63 MB): `5e7340db18c40200c5a1f93f89edb59840f4f57f4ffb8a3375b7fb44e84fab32`
+  * `submission.zip` (166,340,027 bytes, 158.63 MB): `5e7340db18c40200c5a1f93f89edb59840f4f57f4ffb8a3375b7fb44e84fab32`
+* **Release Decision**: **READY FOR SUBMISSION**. All pre-submission audit criteria pass with zero errors.

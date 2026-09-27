@@ -1,0 +1,60 @@
+{
+  "matching_results": {
+    "file": "matching_results.tsv",
+    "size_bytes": 72010861,
+    "sha256": "943b221750b197bb9673a86394cb8866e88f9e30516decc7247edaff2ea6ab6e",
+    "total_lines": 1732544,
+    "unique_s1": 1732544,
+    "duplicate_s1": 0,
+    "header_valid": true,
+    "empty_rows": 326004,
+    "non_empty_rows": 1406540,
+    "total_matches_emitted": 3694722,
+    "invalid_s1_ids": 0,
+    "invalid_target_ids": 0,
+    "self_matches": 0
+  },
+  "candidate_pairs": {
+    "file": "candidate_pairs.tsv",
+    "size_bytes": 316976993,
+    "sha256": "7bbb095be256e19ec29f3a9759811a2412ad3ffb564d4ef09378583ef2779621",
+    "total_lines": 1732544,
+    "unique_s1": 1732544,
+    "duplicate_s1": 0,
+    "header_valid": true,
+    "empty_rows": 3133,
+    "non_empty_rows": 1729411,
+    "total_candidate_pairs": 22859526,
+    "invalid_s1_ids": 0,
+    "invalid_target_ids": 0,
+    "max_cand_cap": 20,
+    "mean_parsimony": 13.19419651102656,
+    "median_parsimony": 14.0,
+    "p90": 20.0,
+    "p95": 20.0,
+    "p99": 20.0
+  },
+  "consistency": {
+    "subset_violations": 0,
+    "sample_violations": [],
+    "s1_set_match": true
+  },
+  "packages": {
+    "VENUS_submission.zip": {
+      "size_bytes": 166340027,
+      "size_mb": 158.63,
+      "sha256": "5e7340db18c40200c5a1f93f89edb59840f4f57f4ffb8a3375b7fb44e84fab32"
+    },
+    "submission.zip": {
+      "size_bytes": 166340027,
+      "size_mb": 158.63,
+      "sha256": "5e7340db18c40200c5a1f93f89edb59840f4f57f4ffb8a3375b7fb44e84fab32"
+    }
+  },
+  "validator": {
+    "returncode": 0,
+    "stdout": "ML Challenge 2026 \u2014 submission validator\n  test dir: C:\\Users\\DELL\\Downloads\\Amazon_ML\\student_resource\\dataset\\test\n  required S1 entities: 1732544\n  matching_results.tsv: 1732544 rows (326004 empty, 1406540 non-empty).\n  candidate_pairs.tsv: 1732544 rows (3133 empty, 1729411 non-empty).\n\nWARNING: ID-existence check is OFF (the default) \u2014 not checking that matched/candidate IDs exist in the test set. Every other rule is still checked. Re-run with --check-ids to enable it (needs test_source2/3.tsv; uses more memory). A nonexistent ID only lowers your score, never rejects your submission.\nPASS \u2014 no blocking issues found. Safe to submit.",
+    "stderr": "",
+    "passed": true
+  }
+}
