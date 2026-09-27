@@ -38,13 +38,16 @@
 
 
 ## Blocking
-- [ ] Blocking strategy A (Exact clean name)
-- [ ] Blocking strategy B (Name prefix + postal code)
-- [ ] Blocking strategy C (Street number + street shingle)
-- [ ] Multi-pass blocking (Disjunctive union within country partition)
-- [ ] Candidate recall measured
-- [ ] Candidate size measured (Target $\le 20$ candidates/S1)
-- [ ] Blocking errors analyzed
+- [x] Blocking strategy A (Exact clean name core with legal suffix stripping)
+- [x] Blocking strategy B (Name prefix + postal code)
+- [x] Blocking strategy C (Street number + primary street token)
+- [x] Blocking strategy D (Sorted top-2 name tokens)
+- [x] Multi-pass blocking (Disjunctive union within country partition in `src/blocking/multi_pass_blocker.py`)
+- [x] Candidate recall measured (Pairs Completeness = $0.633817$, $4,841,325$ true matches captured)
+- [x] Candidate size measured (Mean: $14.20$, Median: $17.0$, Max: $20$, $0.00\%$ exceeding 25)
+- [x] Reduction ratio measured ($RR = 0.99999862$)
+- [x] Blocking errors analyzed (`reports/PHASE_04_CANDIDATE_GENERATION.md`)
+
 
 ## Features
 - [ ] Name features (Jaro-Winkler, Token sort/set, Levenshtein, Q-grams)

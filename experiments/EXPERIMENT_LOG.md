@@ -12,7 +12,9 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-001* | 2026-09-27 | Full Data Forensics & Noise Profiling | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | 3m 18s | 2.8GB | **FORENSICS COMPLETED** |
 | *EXP-002* | 2026-09-27 | Local Evaluator Engine & 2.2M Benchmark | 1.000000 | 3.46 | 1.000000 | 1.000000 | 1.000000 | 13.56s | 2.03GB | **EVALUATOR VERIFIED** |
 | *EXP-003* | 2026-09-27 | Deterministic Exact Baseline Matcher | 0.181969 | 2.83 | 0.303609 | 0.393628 | 0.206765 | 113.33s | 3.65GB | **BASELINE ESTABLISHED** |
-| *EXP-004* | *Planned* | Multi-Channel Candidate Blocking | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 4 |
+| *EXP-004* | 2026-09-27 | Multi-Pass Candidate Generation & Blocking | 0.633817 | 14.20 | 0.277664 | 0.260261 | 0.601758 | 122.85s | 4.60GB | **BLOCKING ACCEPTED** |
+| *EXP-005* | *Planned* | Domain-Specific Feature Engineering | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 5 |
+
 
 ---
 
@@ -72,6 +74,22 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 * **Resource Profile**: Total pipeline wall time **113.33s** (Matcher: 31.4s, Validator: 18.0s, Evaluator: 7.6s), Peak RAM **3.65 GB**.
 * **Key Findings**: Exact matching misses $81.8\%$ of true matches due to legal suffixes, Indic transliteration, and typos. In addition, exact matching produces $4.85\text{M}$ false positives due to identical franchise names across different locations.
 * **Decision**: **BASELINE ESTABLISHED**. Serves as canonical benchmark for Phase 4 Blocking.
-* **Next Step**: Phase 4 — Candidate Generation & Multi-Pass Blocking (Awaiting User Prompt).
+
+### EXP-004: Phase 4 — Multi-Pass Candidate Generation & Blocking
+* **Date**: September 27, 2026
+* **Objective**: Build a high-recall, parsimonious multi-pass candidate blocking engine combining canonical name cores, street numbers + street tokens, postal codes, and sorted name tokens.
+* **Modules**: [`src/blocking/multi_pass_blocker.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/blocking/multi_pass_blocker.py), [`scripts/run_blocking.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_blocking.py)
+* **Official Validator Status**: **PASS (0 Errors, 0 Warnings)** on both `candidate_pairs.tsv` and `matching_results.tsv`.
+* **Measured Blocking Efficiency on Full 2.21M Training Set**:
+  * **Candidate Pairs Completeness (Recall)**: **`0.633817`** ($63.38\%$; **`4,841,325`** of $7,638,365$ true matches captured — a **$+248.3\%$ boost** over Baseline).
+  * **Candidate Reduction Ratio ($RR$)**: **`0.99999862`** (eliminates $99.99986\%$ of all pairwise comparisons).
+  * **Total Candidates Generated**: **`31,339,885`** pairs across 2.21M S1 entities.
+  * **Candidate Parsimony**: Mean **`14.20`**, Median **`17.0`**, Max **`20`**, $>25$ cands **`0.00%`** (strictly zero organizer audit violations).
+  * **Pass Contributions**: Pass 1 (Name Core): 13.12M, Pass 2 (Street+Num): 12.95M, Pass 3 (Postal+Prefix): 0.34M, Pass 4 (Sorted Tokens): 21.42M.
+* **Resource Profile**: Total pipeline wall time **122.85s**, Streaming evaluation time **16.75s**, Peak process RAM **4.60 GB**.
+* **Key Findings**: Multi-pass blocking dramatically expands coverage across legal suffix variants and street-level matches. The resulting candidate pool establishes a clean $6.47 : 1$ negative-to-positive ratio ready for pairwise feature engineering and classification.
+* **Decision**: **BLOCKING ACCEPTED**. Candidate pairs will serve as the candidate set for Phase 5 Feature Engineering.
+* **Next Step**: Phase 5 — Domain-Specific Feature Engineering (Awaiting User Prompt).
+
 
 

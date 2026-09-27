@@ -411,11 +411,103 @@ class EntityResolutionEvaluator:
         ground_truth_tsv: Union[str, Path],
     ) -> EvaluationResult:
         """
-        Convenience method to evaluate a prediction TSV directly against ground truth TSV.
+        Streaming evaluation of a prediction TSV against ground truth TSV.
+        Loads ground truth into memory, then streams prediction TSV line-by-line.
+        RAM usage: ~700MB total instead of multiple gigabytes.
         """
+        t0 = time.perf_counter()
         gt_mapping = cls.load_id_mapping_tsv(ground_truth_tsv)
-        pred_mapping = cls.load_id_mapping_tsv(predictions_tsv)
-        return cls.evaluate_predictions(pred_mapping, gt_mapping)
+        all_keys = list(gt_mapping.keys())
+        num_entities = len(all_keys)
+
+        f05_sum = 0.0
+        prec_sum = 0.0
+        rec_sum = 0.0
+        singleton_correct = 0
+        num_singletons = 0
+        matched_f05_sum = 0.0
+        matched_prec_sum = 0.0
+        matched_rec_sum = 0.0
+        num_matched = 0
+        total_tp = 0
+        total_fp = 0
+        total_fn = 0
+
+        seen_entities: Set[str] = set()
+
+        with open(predictions_tsv, "r", encoding="utf-8", buffering=1024 * 1024) as f:
+            next(f, None)  # skip header
+            for line in f:
+                line = line.rstrip("\n")
+                if not line:
+                    continue
+                s1, sep, rest = line.partition("\t")
+                if not sep:
+                    continue
+                s1 = s1.strip()
+                seen_entities.add(s1)
+                true_set = gt_mapping.get(s1, set())
+                rest = rest.strip()
+                pred_set = set(rest.split(",")) if rest else set()
+
+                f05, prec, rec, tp, fp, fn = cls.compute_entity_metrics(pred_set, true_set)
+                f05_sum += f05
+                prec_sum += prec
+                rec_sum += rec
+                total_tp += tp
+                total_fp += fp
+                total_fn += fn
+
+                if len(true_set) == 0:
+                    num_singletons += 1
+                    if len(pred_set) == 0:
+                        singleton_correct += 1
+                else:
+                    num_matched += 1
+                    matched_f05_sum += f05
+                    matched_prec_sum += prec
+                    matched_rec_sum += rec
+
+        # Handle any entities missing from prediction TSV
+        missing = set(all_keys) - seen_entities
+        for s1 in missing:
+            true_set = gt_mapping[s1]
+            f05, prec, rec, tp, fp, fn = cls.compute_entity_metrics(set(), true_set)
+            f05_sum += f05
+            prec_sum += prec
+            rec_sum += rec
+            total_fn += fn
+            if len(true_set) == 0:
+                num_singletons += 1
+                singleton_correct += 1
+            else:
+                num_matched += 1
+
+        macro_f05 = f05_sum / max(1, num_entities)
+        macro_prec = prec_sum / max(1, num_entities)
+        macro_rec = rec_sum / max(1, num_entities)
+        singleton_accuracy = (singleton_correct / num_singletons) if num_singletons > 0 else 1.0
+        matched_f05 = (matched_f05_sum / num_matched) if num_matched > 0 else 0.0
+        matched_prec = (matched_prec_sum / num_matched) if num_matched > 0 else 0.0
+        matched_rec = (matched_rec_sum / num_matched) if num_matched > 0 else 0.0
+        runtime = time.perf_counter() - t0
+
+        return EvaluationResult(
+            macro_f05=macro_f05,
+            macro_precision=macro_prec,
+            macro_recall=macro_rec,
+            singleton_accuracy=singleton_accuracy,
+            matched_f05=matched_f05,
+            matched_precision=matched_prec,
+            matched_recall=matched_rec,
+            num_entities=num_entities,
+            num_singletons=num_singletons,
+            num_matched=num_matched,
+            total_tp=total_tp,
+            total_fp=total_fp,
+            total_fn=total_fn,
+            runtime_seconds=runtime,
+        )
 
     @classmethod
     def evaluate_candidate_tsv_file(
@@ -426,12 +518,91 @@ class EntityResolutionEvaluator:
         total_s3_count: int = 5285603,
     ) -> CandidateEvaluationResult:
         """
-        Convenience method to evaluate a candidate pairs TSV against ground truth TSV.
+        Streaming evaluation of a candidate pairs TSV against ground truth TSV.
+        Loads ground truth into memory, then streams candidate TSV line-by-line.
+        Requires constant low memory (~700MB) even with 40M+ candidate pairs.
         """
+        t0 = time.perf_counter()
         gt_mapping = cls.load_id_mapping_tsv(ground_truth_tsv)
-        cand_mapping = cls.load_id_mapping_tsv(candidates_tsv)
-        return cls.evaluate_candidates(
-            cand_mapping, gt_mapping, total_s2_count, total_s3_count
+        num_entities = len(gt_mapping)
+
+        total_true_matches = sum(len(s) for s in gt_mapping.values())
+        captured_true_matches = 0
+        total_candidates = 0
+
+        candidate_sizes = np.empty(num_entities, dtype=np.int32)
+        seen_s1: Set[str] = set()
+        idx = 0
+
+        with open(candidates_tsv, "r", encoding="utf-8", buffering=1024 * 1024) as f:
+            next(f, None)  # skip header
+            for line in f:
+                line = line.rstrip("\n")
+                if not line:
+                    continue
+                s1, sep, rest = line.partition("\t")
+                if not sep:
+                    continue
+                s1 = s1.strip()
+                seen_s1.add(s1)
+                rest = rest.strip()
+                if rest:
+                    cand_ids = rest.split(",")
+                    sz = len(cand_ids)
+                    cand_set = set(cand_ids)
+                else:
+                    sz = 0
+                    cand_set = set()
+
+                true_set = gt_mapping.get(s1, set())
+                if true_set and cand_set:
+                    captured_true_matches += len(true_set & cand_set)
+
+                if idx < num_entities:
+                    candidate_sizes[idx] = sz
+                    idx += 1
+                total_candidates += sz
+
+        # Remaining S1 entities without rows have size 0
+        if idx < num_entities:
+            candidate_sizes[idx:] = 0
+
+        pairs_completeness = (
+            captured_true_matches / total_true_matches if total_true_matches > 0 else 1.0
+        )
+        total_possible_pairs = num_entities * (total_s2_count + total_s3_count)
+        reduction_ratio = (
+            1.0 - (total_candidates / total_possible_pairs) if total_possible_pairs > 0 else 0.0
+        )
+
+        mean_size = float(np.mean(candidate_sizes)) if num_entities > 0 else 0.0
+        median_size = float(np.median(candidate_sizes)) if num_entities > 0 else 0.0
+        min_size = int(np.min(candidate_sizes)) if num_entities > 0 else 0
+        max_size = int(np.max(candidate_sizes)) if num_entities > 0 else 0
+        p90 = float(np.percentile(candidate_sizes, 90)) if num_entities > 0 else 0.0
+        p95 = float(np.percentile(candidate_sizes, 95)) if num_entities > 0 else 0.0
+        p99 = float(np.percentile(candidate_sizes, 99)) if num_entities > 0 else 0.0
+        frac_25 = float(np.mean(candidate_sizes > 25)) if num_entities > 0 else 0.0
+        frac_50 = float(np.mean(candidate_sizes > 50)) if num_entities > 0 else 0.0
+        runtime = time.perf_counter() - t0
+
+        return CandidateEvaluationResult(
+            pairs_completeness=pairs_completeness,
+            reduction_ratio=reduction_ratio,
+            mean_candidate_size=mean_size,
+            median_candidate_size=median_size,
+            min_candidate_size=min_size,
+            max_candidate_size=max_size,
+            p90_candidate_size=p90,
+            p95_candidate_size=p95,
+            p99_candidate_size=p99,
+            fraction_exceeding_25=frac_25,
+            fraction_exceeding_50=frac_50,
+            total_candidates=total_candidates,
+            total_true_matches=total_true_matches,
+            captured_true_matches=captured_true_matches,
+            num_entities=num_entities,
+            runtime_seconds=runtime,
         )
 
 
