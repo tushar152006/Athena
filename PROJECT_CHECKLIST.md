@@ -60,6 +60,7 @@
 - [x] Hard negatives (Extracted from Phase 4 multi-pass blocking, 5.35:1 negative ratio)
 - [x] Calibration/threshold analysis (Calibrated for Macro F0.5 on unseen S1 entities)
 - [x] Architecture comparison (LightGBM vs XGBoost vs CatBoost vs Logistic Regression in `scripts/compare_models.py`)
+- [x] Ensembling & blending (Soft voting, rank averaging, precision-guarded stacking in `src/models/ensemble_blender.py`)
 
 ## Optimization
 - [x] Threshold optimization (Sweep $p \in [0.40, 0.95]$, optimal $p^* = 0.60$, Macro $F_{0.5} = 0.72953$)
@@ -87,7 +88,7 @@
 
 ---
 
-### Status Summary (Phase 13 Model Architecture Comparison Completion)
+### Status Summary (Phase 14 Ensembling & Blending Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -103,11 +104,12 @@
   * Phase 11 Comprehensive Error Analysis & Diagnostics (`src/evaluation/error_analyzer.py`, `reports/PHASE_11_ERROR_ANALYSIS.md`).
   * Phase 12 Advanced Retrieval & Dropout Recovery (`src/blocking/advanced_retriever.py`, Candidate Recall = $\mathbf{70.06\%}$, `+861` recovered matches, `reports/PHASE_12_ADVANCED_RETRIEVAL.md`).
   * Phase 13 Model Architecture Comparison (`scripts/compare_models.py`, XGBoost $F_{0.5} = \mathbf{0.731308}$, LightGBM $F_{0.5} = \mathbf{0.729851}$, CatBoost $F_{0.5} = \mathbf{0.726859}$, `reports/PHASE_13_MODEL_COMPARISON.md`).
+  * Phase 14 Ensembling & Blending (`src/models/ensemble_blender.py`, Precision-Guarded Stacking $F_{0.5} = \mathbf{0.732600}$, Prec = $82.80\%$, `reports/PHASE_14_ENSEMBLING.md`).
 * **Not completed**:
-  * Stage IV Diagnostics & Iterative Improvement (Phase 14: Ensembling & Blending; Phase 15: Final Pipeline Retest & Submission Regeneration).
+  * Stage IV Diagnostics & Iterative Improvement (Phase 15: Final Pipeline Retest & Submission Regeneration).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 14 — Ensembling & Blending (Rank Averaging, Calibrated Probability Blending, Error-Complementary Stacking).
+  * Phase 15 — Final Pipeline Retest & Submission Regeneration.
 
 
 

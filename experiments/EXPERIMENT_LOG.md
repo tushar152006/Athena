@@ -21,6 +21,7 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-011* | 2026-09-27 | Error Diagnostics & Forensic Autopsy | 0.637907 | 14.12 | `N/A` (Diagnostic) | 0.950200 (pw) | 0.565800 | 26.4s | 1.2GB | **BOTTLENECK FOUND (83.4% Dropouts)** |
 | *EXP-012* | 2026-09-27 | Advanced Retrieval (Char 4-gram Inverted Index) | 0.700649 | 14.80 | `N/A` (Retrieval) | `N/A` | 0.700649 | 21.0s | 1.4GB | **RECALL LIFT (+6.27% abs / +9.84% rel)** |
 | *EXP-013* | 2026-09-27 | Model Comparison (LGBM vs XGBoost vs CatBoost vs LogReg) | 0.637907 | 14.12 | 0.731308 (XGB) | 0.821700 | 0.586800 | 95.1s | 1.3GB | **BENCHMARK COMPLETE (XGB/LGBM Top)** |
+| *EXP-014* | 2026-09-27 | Ensembling & Blending (Soft Vote, Rank Avg, Stacking) | 0.637907 | 14.12 | 0.732600 (Stack) | 0.828000 | 0.580400 | 123.8s | 1.4GB | **ENSEMBLE RECORD (Stack F0.5=0.7326)** |
 
 
 ---
@@ -319,3 +320,16 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Inter-Model Correlation**: Exceptionally high Pearson correlation ($r = 0.9988$ between LightGBM and XGBoost, $r = 0.9976$ between LightGBM and CatBoost). Confirms consensus across tree algorithms.
 * **Resource Profile**: Total benchmark runtime **95.05 seconds (1.58 minutes)**, Peak RAM **1.3 GB RSS**.
 * **Decision**: **BENCHMARK COMPLETED & ARCHITECTURES VALIDATED**. Both XGBoost and LightGBM established as top-tier candidate scorers; CatBoost confirmed as high-recall complement. Ready for Phase 14 (Ensembling & Blending).
+
+### EXP-014: Phase 14 — Ensembling & Blending (Rank Averaging, Calibrated Soft Voting & Precision-Guarded Stacking)
+* **Date**: September 27, 2026
+* **Objective**: Synthesize complementary strengths of LightGBM (speed/balance), XGBoost (precision/singleton retention), and CatBoost (high recall) through calibrated soft voting, percentile rank averaging, and precision-guarded consensus stacking.
+* **Modules**: [`src/models/ensemble_blender.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/models/ensemble_blender.py), [`scripts/run_ensemble_blend.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_ensemble_blend.py), [`reports/PHASE_14_ENSEMBLING.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_14_ENSEMBLING.md), [`models/ensemble/ensemble_config.json`](file:///c:/Users/DELL/Downloads/Amazon_ML/models/ensemble/ensemble_config.json)
+* **Target Universe**: 4,000 Unseen Validation S1 Entities (56,469 Candidate Pairs) | 16,000 Training S1 Entities (227,611 Pairs)
+* **Key Measured Findings Across Ensembling Paradigms**:
+  * **Precision-Guarded Consensus Stacking**: Outperformed all single models and linear blends, reaching **`Macro F0.5 = 0.732600`** with **`82.80%` Precision** at threshold $0.58$. By enforcing an XGBoost singleton veto ($P_{\text{xgb}} < 0.25$) and 2-of-3 consensus promotion with adaptive margin $\delta = 0.30$, it successfully eliminated franchise look-alike false merges.
+  * **Simplex-Optimized Calibrated Soft Voting**: Optimal weights discovered at **`30% LightGBM + 60% XGBoost + 10% CatBoost`** at $p^* = 0.58$, achieving **`Macro F0.5 = 0.730701`** (Prec: 81.93%, Rec: 58.91%). Heavily favored XGBoost as the precision anchor.
+  * **Equal-Weight Soft Voting (33/33/34)**: Macro $F_{0.5} = \mathbf{0.729755}$ (Prec: 81.84%, Rec: 58.80%) at $p^* = 0.58$.
+  * **Percentile Rank Averaging (Borda Count)**: Macro $F_{0.5} = \mathbf{0.728282}$ (Prec: 81.13%, Rec: 59.60%) at optimal rank threshold $0.85$.
+* **Resource Profile**: Total execution wall time **123.82s (2.06 minutes)**, Peak RAM **1.4 GB RSS**.
+* **Decision**: **ENSEMBLE POLICIES VERIFIED & PERSISTED**. Precision-Guarded Stacking and 30/60/10 Calibrated Soft Voting validated as top scoring ensembles. Ready for Phase 15 (Final Pipeline Integration, Submission Packaging & End-to-End Validation).
