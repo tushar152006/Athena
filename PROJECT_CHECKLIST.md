@@ -74,19 +74,19 @@
 - [ ] Ablation study
 
 ## Submission
-- [ ] `matching_results.tsv` generated
-- [ ] `candidate_pairs.tsv` generated
-- [ ] Official validator passes (`python3 utils/validate_submission.py`)
-- [ ] Final matches subset of candidates
-- [ ] Every S1 represented (1,732,544 rows in test)
-- [ ] No duplicates
-- [ ] Reproducibility tested
-- [ ] Final methodology completed (`Documentation_template.md`)
-- [ ] Submission package tested (`.zip` structure verified)
+- [x] `matching_results.tsv` generated (1,732,544 rows, TSV, UTF-8, 3,694,722 matches)
+- [x] `candidate_pairs.tsv` generated (1,732,544 rows, TSV, UTF-8, 24,253,707 pairs, parsimony 13.99 <= 20)
+- [x] Official validator passes (`python3 utils/validate_submission.py`, Exit Code 0, PASS)
+- [x] Final matches subset of candidates (100% verified subset)
+- [x] Every S1 represented (exactly 1,732,544 rows in both test files)
+- [x] No duplicates (0 duplicate S1 IDs, 0 intra-list duplicates)
+- [x] Reproducibility tested (`scripts/run_inference.py`, deterministic pipeline)
+- [x] Final methodology completed (`Documentation_template.md` fully completed)
+- [x] Submission package tested (`submission.zip` verified, 45 files archived, SHA-256 recorded)
 
 ---
 
-### Status Summary (Phase 7 Graph Clustering Completion)
+### Status Summary (Phase 8 End-to-End Pipeline & Submission Verification)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -96,8 +96,10 @@
   * Phase 5 Domain-Specific Feature Engineering (`src/features/feature_extractor.py`, 20 features, 2,129 pairs/sec, `reports/PHASE_05_FEATURE_ENGINEERING.md`).
   * Phase 6 Pairwise Classifier & Gradient Boosting (`src/models/pairwise_classifier.py`, Macro $F_{0.5} = \mathbf{0.729530}$, `+140.28%` over baseline, `reports/PHASE_06_CLASSIFICATION.md`).
   * Phase 7 Global Graph Clustering & Singleton Resolution (`src/clustering/graph_clusterer.py`, Macro $F_{0.5} = \mathbf{0.722420}$, megacluster suppression $\le 11$, `reports/PHASE_07_CLUSTERING.md`).
+  * Phase 8 End-to-End Pipeline Integration, Test Set Inference & Submission Packaging (`reports/PHASE_08_FINAL_INTEGRATION.md`, `submission.zip` 157.66 MB).
 * **Not completed**:
-  * Phase 8 End-to-End Pipeline Integration, Testing & Submission Packaging.
+  * Iterative improvements (Stage III Phase 9: Hard Negative Mining; Phase 10: Threshold Fine-Tuning; Stage IV: Diagnostics).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 8 — End-to-End Pipeline Integration, Submission Packaging & Verification (`EXP-008`).
+  * Phase 9 — Hard Negative Mining (Same address / look-alike disambiguation).
+

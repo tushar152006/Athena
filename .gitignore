@@ -11,6 +11,10 @@ __MACOSX/
 *.tmp
 *.log
 
+# Large archives and generated staging
+*.zip
+code/
+
 # Python cache
 __pycache__/
 *.py[cod]

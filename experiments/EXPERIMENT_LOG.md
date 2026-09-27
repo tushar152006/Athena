@@ -219,7 +219,29 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 * **Resource Profile**: Total pipeline wall time **25.1s** (Feature extraction: 8.5s; Scoring & Clustering: 1.2s), Peak RAM **0.9 GB**.
 * **Key Findings**: Enforcing candidate exclusivity and cardinality bounding guarantees that no giant connected components can form. The Singleton Guard protects the high-precision regime demanded by $\beta=0.5$.
 * **Decision**: **CLUSTERING ACCEPTED**. Pipeline components are fully integrated and ready for Phase 8 End-to-End Submission Pipeline Verification.
-* **Next Step**: Phase 8 — End-to-End Pipeline Integration, Validation & Packaging (Awaiting User Prompt).
+* **Next Step**: Phase 8 — End-to-End Pipeline Integration, Validation & Packaging (`EXP-008`).
+
+### EXP-008: Phase 8 — End-to-End Pipeline Integration, Test Set Inference & Submission Packaging
+* **Date**: September 27, 2026
+* **Objective**: Execute full test set inference across all 1,732,544 test S1 entities against 9.97M candidates, evaluate 24.25M pairs with 20 features and LightGBM, apply bipartite clustering with singleton protection, pass official submission validator, and assemble `submission.zip`.
+* **Modules**: [`src/pipeline/inference_pipeline.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/pipeline/inference_pipeline.py), [`scripts/run_inference.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_inference.py), [`scripts/package_submission.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/package_submission.py), [`reports/PHASE_08_FINAL_INTEGRATION.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_08_FINAL_INTEGRATION.md)
+* **Official Validator Status**: **PASS (0 Errors, 0 Warnings, Exit Code: 0)**.
+* **Test Set Inference Empirical Metrics**:
+  * **Total S1 Test Entities**: **`1,732,544`** (100% accounted for, exactly 1 header + 1,732,544 rows in both output files).
+  * **Candidate Pairs Generated**: **`24,253,707`** (Mean parsimony `13.99`, strictly capped $\le 20$).
+  * **Total Matches Emitted**: **`3,694,722`** (all confirmed strict subsets of candidate pairs).
+  * **Total Singletons Emitted**: **`326,004`** ($18.82\%$).
+  * **Bipartite Multi-Claim Conflicts Resolved**: **`7,823`** conflicts resolved via max-weight matching.
+  * **Maximum Matches per Entity**: **`11`** (Zero megacluster blowups).
+* **Deliverable Files & SHA-256 Checksums**:
+  * `output/candidate_pairs.tsv` (302.29 MB): `7bbb095be256e19ec29f3a9759811a2412ad3ffb564d4ef09378583ef2779621`
+  * `output/matching_results.tsv` (68.67 MB): `943b221750b197bb9673a86394cb8866e88f9e30516decc7247edaff2ea6ab6e`
+  * `Documentation_template.md` (5.86 KB): `45dc72f854b81ca8b866c15b1368945f3c64c767fba9ad74e5033c4cb67a42bb`
+  * `submission.zip` (157.66 MB): `5a6f28c87755d87d75c8eb63fc9ebd8bce42f931157cef877fc83064c4b07232`
+* **Resource Profile**: Total pipeline wall time **60.36 minutes** (Blocking: 114s; Scoring & Clustering: 3,436s), Peak RAM **11.2 GB RSS**.
+* **Key Findings**: Vectorized blocking + streaming chunked scoring and bipartite clustering scales effortlessly to 1.73M queries and 24.25M pairs within ~1 hour on standard workstation hardware. The output passes all official submission checks with zero warnings or schema errors.
+* **Decision**: **END-TO-END PIPELINE & SUBMISSION VERIFIED AND PACKAGED**. Ready for Stage III Phase 9 Hard Negative Mining.
+
 
 
 
