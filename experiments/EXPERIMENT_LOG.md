@@ -15,7 +15,11 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-005* | 2026-09-27 | Domain-Specific Feature Extraction Engine | 0.633817 | 14.20 | `N/A` (Features) | `N/A` | `N/A` | 32.9s (70k) | 0.8GB | **FEATURES ACCEPTED** |
 | *EXP-006* | 2026-09-27 | LightGBM Pairwise Classifier (p*=0.60) | 0.633817 | 14.20 | 0.729530 | 0.819250 | 0.586150 | 119.5s | 1.2GB | **MODEL ACCEPTED (+140.3%)** |
 | *EXP-007* | 2026-09-27 | Global Graph Clustering & Singleton Guard | 0.633817 | 14.20 | 0.722420 | 0.814110 | 0.576200 | 25.1s (71k) | 0.9GB | **CLUSTERING ACCEPTED** |
-| *EXP-008* | *Planned* | End-to-End Submission Pipeline Verification | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 8 |
+| *EXP-008* | 2026-09-27 | End-to-End Submission Pipeline Verification | 0.633817 | 13.99 | 0.729530 (val) | 0.819250 | 0.586150 | 60.36m (test) | 11.2GB | **SUBMISSION PACKAGED** |
+| *EXP-009* | 2026-09-27 | Hard Negative Mining & Model Retraining | 0.633817 | 14.20 | 0.727702 | 0.811746 | 0.592819 | 168.5s | 2.1GB | **MODEL ACCEPTED (Recall +0.67%)** |
+| *EXP-010* | 2026-09-27 | Threshold Optimization & Adaptive Boundaries | 0.633817 | 14.20 | 0.733923 | 0.829314 | 0.579410 | 11.2s | 0.6GB | **RECORD SCORE (F0.5=0.7339)** |
+| *EXP-011* | 2026-09-27 | Error Diagnostics & Forensic Autopsy | 0.637907 | 14.12 | `N/A` (Diagnostic) | 0.950200 (pw) | 0.565800 | 26.4s | 1.2GB | **BOTTLENECK FOUND (83.4% Dropouts)** |
+| *EXP-012* | 2026-09-27 | Advanced Retrieval (Char 4-gram Inverted Index) | 0.700649 | 14.80 | `N/A` (Retrieval) | `N/A` | 0.700649 | 21.0s | 1.4GB | **RECALL LIFT (+6.27% abs / +9.84% rel)** |
 
 
 ---
@@ -288,11 +292,15 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 * **Resource Profile**: Total execution wall time **26.4 seconds**, Peak RAM **1.2 GB RSS**.
 * **Decision**: **DIAGNOSTIC CENSUS ACCEPTED**. Phase 12 Advanced Retrieval confirmed as primary performance driver. Ready for Phase 12 (Advanced Retrieval / Embeddings).
 
-
-
-
-
-
-
-
-
+### EXP-012: Phase 12 — Advanced Retrieval (Character 4-gram Inverted Index & Hybrid Dropout Recovery)
+* **Date**: September 27, 2026
+* **Objective**: Overcome the 83.4% blocking dropout bottleneck identified in Phase 11 by deploying a sublinear Character 3-4 Gram TF-IDF Inverted Index with sparse cosine similarity retrieval, fused with baseline blocking under strict parsimony ($\le 20$).
+* **Modules**: [`src/blocking/advanced_retriever.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/blocking/advanced_retriever.py), [`scripts/run_advanced_retrieval.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/run_advanced_retrieval.py), [`reports/PHASE_12_ADVANCED_RETRIEVAL.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_12_ADVANCED_RETRIEVAL.md)
+* **Target Universe**: 4,000 Unseen Validation S1 Entities (13,723 Ground Truth Match Pairs)
+* **Key Measured Findings & Breakthrough Recall Lift**:
+  * **Ground Truth Captured**: Jumped from **`8,754`** (Baseline) to **`9,615`** matches (**`+861` true matches recovered** from previous blocking dropouts!).
+  * **Candidate Recall (Pairs Completeness)**: Soared from **`63.79%`** to **`70.06%`** (**`+6.27%` absolute lift**, **`+9.84%` relative lift**).
+  * **Model Conversion**: **`682` of the 861 recovered matches** scored $P(\text{match}) \ge 0.50$ when evaluated by the LightGBM classifier, directly converting into high-precision true positives.
+  * **Candidate Parsimony**: Mean candidates per S1 entity remained highly parsimonious at **`14.80`** (baseline `14.12`), with maximum candidates strictly capped at **`20`** ($0.00\%$ exceeding 20).
+  * **Ultra-Fast Sparse BLAS Scalability**: Sparse matrix dot-product retrieval over 58,627 candidate records executed in **`2.89s`**; total script runtime was **`21.03s`** (Peak RAM **`1.4 GB RSS`**).
+* **Decision**: **ADVANCED RETRIEVER INTEGRATED & ACCEPTED**. Successfully breached the 63.38% candidate recall ceiling to achieve 70.06% recall while preserving candidate parsimony. Ready for Phase 13 (Model Comparison: LightGBM vs. CatBoost / XGBoost / Baselines).

@@ -68,9 +68,9 @@
 - [x] False-negative analysis (Blocking dropouts 83.4%, scoring misses 16.6%)
 
 ## Advanced
-- [ ] Retrieval experiment (TF-IDF / BM25 inverted index)
+- [x] Retrieval experiment (Char 4-gram TF-IDF inverted index in `src/blocking/advanced_retriever.py`)
 - [ ] Embedding experiment if justified (Only if CPU baseline requires semantic help)
-- [ ] Hybrid experiment if justified
+- [x] Hybrid experiment (Multi-pass blocking + Char 4-gram retrieval, +6.27% recall lift to 70.06%)
 - [ ] Ablation study
 
 ## Submission
@@ -86,7 +86,7 @@
 
 ---
 
-### Status Summary (Phase 11 Error Analysis Completion)
+### Status Summary (Phase 12 Advanced Retrieval Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -100,11 +100,12 @@
   * Phase 9 Hard Negative Mining & Model Retraining (`src/models/hard_negative_miner.py`, `models/lightgbm_hard_negatives.txt`, `reports/PHASE_09_HARD_NEGATIVE_MINING.md`).
   * Phase 10 Threshold Optimization & Adaptive Boundary Calibration (`src/models/threshold_calibrator.py`, Macro $F_{0.5} = \mathbf{0.733923}$, `reports/PHASE_10_THRESHOLD_OPTIMIZATION.md`).
   * Phase 11 Comprehensive Error Analysis & Diagnostics (`src/evaluation/error_analyzer.py`, `reports/PHASE_11_ERROR_ANALYSIS.md`).
+  * Phase 12 Advanced Retrieval & Dropout Recovery (`src/blocking/advanced_retriever.py`, Candidate Recall = $\mathbf{70.06\%}$, `+861` recovered matches, `reports/PHASE_12_ADVANCED_RETRIEVAL.md`).
 * **Not completed**:
-  * Stage IV Diagnostics & Iterative Improvement (Phase 12: Advanced Retrieval; Phase 13: Model Comparison; Phase 14: Ensembling).
+  * Stage IV Diagnostics & Iterative Improvement (Phase 13: Model Comparison; Phase 14: Ensembling; Phase 15: Final Pipeline Retest).
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 12 — Advanced Retrieval (Inverted Index / TF-IDF / Character 4-gram retrieval to recover 83.4% blocking dropouts).
+  * Phase 13 — Model Comparison (LightGBM vs. CatBoost / XGBoost / Baselines).
 
 
 
