@@ -1,0 +1,25 @@
+split,file,column,dtype,n_rows,null_count,empty_count,null_pct,n_unique,example,role
+train,train_source1.tsv,entity_id,String,2206821,0,0,0.0,2206821,S1-925783039,OFFICIAL: Record Identifier
+train,train_source1.tsv,business_name,String,2206821,0,0,0.0,1539229,Orelee's Barbershop,OFFICIAL: Business Name
+train,train_source1.tsv,business_address,String,2206821,0,0,0.0,2130606,"1795 Westchester Drive, High Point, NC",OFFICIAL: Physical Address
+train,train_source1.tsv,country,String,2206821,0,0,0.0,2,US,OFFICIAL: Country Code
+train,train_source2.tsv,entity_id,String,5034616,0,0,0.0,5034616,S2-166376419,OFFICIAL: Record Identifier
+train,train_source2.tsv,business_name,String,5034616,0,0,0.0,4402009,राम मार्केटिंग प्राइवेट लिमिटेड,OFFICIAL: Business Name
+train,train_source2.tsv,business_address,String,5034616,168967,0,3.3561050137686768,4337262,"KH NO. -570/13, NEW DELHI, WEST DELHI, Delhi",OFFICIAL: Physical Address
+train,train_source2.tsv,country,String,5034616,0,0,0.0,2,India,OFFICIAL: Country Code
+train,train_source3.tsv,entity_id,String,5285603,0,0,0.0,5285603,S3-202863386,OFFICIAL: Record Identifier
+train,train_source3.tsv,business_name,String,5285603,0,0,0.0,4651609,wilfordhancock.com,OFFICIAL: Business Name
+train,train_source3.tsv,business_address,String,5285603,175916,0,3.3282106128666875,4632765,"Mack Rd, Haltom City, Texas",OFFICIAL: Physical Address
+train,train_source3.tsv,country,String,5285603,0,0,0.0,2,US,OFFICIAL: Country Code
+test,test_source1.tsv,entity_id,String,1732544,0,0,0.0,1732544,S1-714132312,OFFICIAL: Record Identifier
+test,test_source1.tsv,business_name,String,1732544,0,0,0.0,1238867,Zephay Labs Inc,OFFICIAL: Business Name
+test,test_source1.tsv,business_address,String,1732544,0,0,0.0,1677483,"2621 Cotten Road, Tyler, TX",OFFICIAL: Physical Address
+test,test_source1.tsv,country,String,1732544,0,0,0.0,3,US,OFFICIAL: Country Code
+test,test_source2.tsv,entity_id,String,4887273,0,0,0.0,4887273,S2-192345572,OFFICIAL: Record Identifier
+test,test_source2.tsv,business_name,String,4887273,0,0,0.0,4311041,Brahma Infosoft,OFFICIAL: Business Name
+test,test_source2.tsv,business_address,String,4887273,129408,0,2.647856995097266,4224784,"COIMATORE COLONY, HUNSUR TQMYSORE DIST., Karnataka",OFFICIAL: Physical Address
+test,test_source2.tsv,country,String,4887273,0,0,0.0,3,India,OFFICIAL: Country Code
+test,test_source3.tsv,entity_id,String,5082316,0,0,0.0,5082316,S3-462677478,OFFICIAL: Record Identifier
+test,test_source3.tsv,business_name,String,5082316,0,0,0.0,4521929,मॉडर्न फाइनेंस,OFFICIAL: Business Name
+test,test_source3.tsv,business_address,String,5082316,136098,0,2.6778736308407427,4456436,"No 10 Enkay Square, 448A, Udyog Vihar Phase V, Gur",OFFICIAL: Physical Address
+test,test_source3.tsv,country,String,5082316,0,0,0.0,3,India,OFFICIAL: Country Code

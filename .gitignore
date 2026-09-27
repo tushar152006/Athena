@@ -2,6 +2,8 @@
 student_resource/dataset/
 dataset/
 *.tsv
+*.mp4
+
 
 # OS and Temp files
 .DS_Store

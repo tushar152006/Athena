@@ -13,12 +13,12 @@
 ## Data
 - [x] Training data profiled (2.21M S1, 5.03M S2, 5.29M S3; 12.53M total)
 - [x] Test data profiled (1.73M S1, 4.89M S2, 5.08M S3; 11.70M total)
-- [ ] Missing values analyzed (Detailed field-level null scan pending Phase 1)
-- [ ] Duplicates analyzed (Internal deduplication check pending Phase 1)
+- [x] Missing values analyzed (0% null in S1; 3.3% missing addresses in S2/S3)
+- [x] Duplicates analyzed (0 exact composite duplicates in S1; 30.2% name overlap, 3.5% address overlap)
 - [x] Country distribution analyzed (Train: US 60%, India 40%; Test: India 47%, US 38%, France 15%)
-- [ ] Name noise analyzed (Systematic noise taxonomy pending Phase 1)
-- [ ] Address noise analyzed (Systematic address taxonomy pending Phase 1)
-- [x] Ground truth analyzed (7,638,365 true match pairs, mean 3.666 matches/entity)
+- [x] Name noise analyzed (Documented in text_statistics.csv & noise_examples.csv)
+- [x] Address noise analyzed (Documented in text_statistics.csv & noise_examples.csv)
+- [x] Ground truth analyzed (7,638,365 true match pairs, mean 3.461 matches/entity)
 - [x] Singleton distribution analyzed (123,247 singletons / 5.58% in train ground truth)
 
 ## Evaluation
