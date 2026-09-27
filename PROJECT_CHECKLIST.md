@@ -22,13 +22,14 @@
 - [x] Singleton distribution analyzed (123,247 singletons / 5.58% in train ground truth)
 
 ## Evaluation
-- [ ] Local evaluator implemented (Pending Phase 2)
-- [ ] Evaluator tested (Pending Phase 2)
-- [ ] Macro F0.5 verified against manual examples (Pending Phase 2)
-- [ ] Singleton scoring verified (Pending Phase 2)
-- [ ] Candidate recall implemented (Pending Phase 2)
-- [ ] Candidate-size statistics implemented (Mean, Median, P90, P95, P99, Max) (Pending Phase 2)
-- [ ] Reduction ratio implemented (Pending Phase 2)
+- [x] Local evaluator implemented (`src/evaluation/evaluator.py`)
+- [x] Evaluator tested (8 unit tests in `tests/test_evaluator.py`, all PASS)
+- [x] Macro F0.5 verified against manual examples (Exact entity-level $\beta=0.5$ macro formulation)
+- [x] Singleton scoring verified (1.0 for empty, 0.0 for hallucination)
+- [x] Candidate recall implemented (Pairs Completeness $|M \cap C| / |M|$)
+- [x] Candidate-size statistics implemented (Mean, Median, P90, P95, P99, Max)
+- [x] Reduction ratio implemented ($1 - |C| / (|S_1| \times (|S_2| + |S_3|))$)
+
 
 ## Baseline
 - [ ] Baseline implemented (Pending Phase 3)

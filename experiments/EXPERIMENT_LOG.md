@@ -10,7 +10,8 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | *EXP-000* | 2026-09-27 | Project Audit Verification | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | 45s | 1.1GB | **AUDIT COMPLETED** |
 | *EXP-001* | 2026-09-27 | Full Data Forensics & Noise Profiling | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | 3m 18s | 2.8GB | **FORENSICS COMPLETED** |
-| *EXP-002* | *Planned* | Baseline Exact Normalized Matcher | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 3 |
+| *EXP-002* | 2026-09-27 | Local Evaluator Engine & 2.2M Benchmark | 1.000000 | 3.46 | 1.000000 | 1.000000 | 1.000000 | 13.56s | 2.03GB | **EVALUATOR VERIFIED** |
+| *EXP-003* | *Planned* | Baseline Exact Normalized Matcher | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 3 |
 
 ---
 
@@ -39,5 +40,19 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * Singletons: 123,247 S1 entities (5.58%) have 0 matches; remaining 94.42% average 3.666 matches (max 11).
   * Test distribution shift: France introduced in Test set (15.0% of S1, ~1.43M records in S2/S3).
 * **Decision**: **FORENSICS ACCEPTED**. Machine-readable reports generated in `reports/phase_01/` and comprehensive report in `reports/PHASE_01_DATA_FORENSICS.md`.
-* **Next Step**: Phase 2 — Local Evaluator (Awaiting User Review & Approval).
+
+### EXP-002: Phase 2 — Local Evaluator Verification & Full-Scale Benchmark
+* **Date**: September 27, 2026
+* **Objective**: Build and benchmark high-throughput Macro F0.5 evaluator and candidate generation metrics on full 2,206,821 training ground-truth entities.
+* **Modules**: [`src/evaluation/evaluator.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/evaluation/evaluator.py), [`tests/test_evaluator.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/tests/test_evaluator.py), [`scripts/benchmark_evaluator.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/benchmark_evaluator.py)
+* **Test Suite**: 8 unit tests covering edge cases, singleton rules, beta=0.5 weighting asymmetry, and official validator checks. Result: **100% PASS (8/8)**.
+* **Benchmark Performance on 2,206,821 Records**:
+  * File load time: **7.62s**
+  * Evaluation throughput: **13.56s** for 2.21M entities (~162,000 entities/sec).
+  * Peak memory: **2.03 GB RSS**.
+  * Self-evaluation verification: Macro $F_{0.5} = \mathbf{1.000000}$, Precision = $\mathbf{1.000000}$, Recall = $\mathbf{1.000000}$, Singleton Accuracy = $\mathbf{1.000000}$.
+  * Candidate blocking metrics: Pairs Completeness = $\mathbf{1.000000}$, Reduction Ratio = $\mathbf{0.99999966}$, Parsimony (Mean: 3.46, P90: 6.0, P99: 8.0, >25: 0.00%).
+* **Decision**: **EVALUATOR ADOPTED AS CANONICAL GROUND TRUTH**.
+* **Next Step**: Phase 3 — Baseline Implementation (Awaiting User Prompt).
+
 
