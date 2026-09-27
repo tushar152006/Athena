@@ -2,7 +2,8 @@
 ## Final Methodology & Architecture Documentation
 
 **Team Name:** VENUS  
-**Team Members:** Tushar Burla, Bipanchi Kalita, Arpit Gupta  
+**Team Leader:** Tushar Burla  
+**Team Members:** Tushar Burla (Leader), Bipanchi Kalita, Arpit Gupta  
 **Submission Date:** September 2026  
 
 ---

@@ -85,7 +85,8 @@ def package_submission(project_root: Path) -> Path:
     readme_content = (
         "# Amazon ML Challenge 2026: Business Entity Resolution\n\n"
         "## Team VENUS\n"
-        "**Team Members:** Tushar Burla, Bipanchi Kalita, Arpit Gupta\n\n"
+        "**Team Leader:** Tushar Burla\n"
+        "**Team Members:** Tushar Burla (Leader), Bipanchi Kalita, Arpit Gupta\n\n"
         "### Overview\n"
         "This directory contains the self-contained, reproducible source code for Team VENUS's entity resolution pipeline.\n"
         "It implements a fast, scalable two-stage architecture: vectorized multi-pass blocking in Polars followed by a 20-feature LightGBM GBDT matcher and bipartite graph clustering.\n\n"
