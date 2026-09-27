@@ -144,9 +144,12 @@ def package_submission(project_root: Path) -> Path:
         # 2. Documentation_template.md
         z.write(doc_file, arcname="Documentation_template.md")
 
-        # 3. code/ files
+        # 3. code/ files (clean source code only, excluding bytecode and cache)
         for root, dirs, files in os.walk(staging_code):
+            dirs[:] = [d for d in dirs if d != "__pycache__"]
             for file in files:
+                if file.endswith((".pyc", ".pyo")):
+                    continue
                 full_path = Path(root) / file
                 rel_path = full_path.relative_to(project_root)
                 z.write(full_path, arcname=str(rel_path).replace("\\", "/"))
