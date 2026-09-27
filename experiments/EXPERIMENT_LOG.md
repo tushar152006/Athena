@@ -22,6 +22,7 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-012* | 2026-09-27 | Advanced Retrieval (Char 4-gram Inverted Index) | 0.700649 | 14.80 | `N/A` (Retrieval) | `N/A` | 0.700649 | 21.0s | 1.4GB | **RECALL LIFT (+6.27% abs / +9.84% rel)** |
 | *EXP-013* | 2026-09-27 | Model Comparison (LGBM vs XGBoost vs CatBoost vs LogReg) | 0.637907 | 14.12 | 0.731308 (XGB) | 0.821700 | 0.586800 | 95.1s | 1.3GB | **BENCHMARK COMPLETE (XGB/LGBM Top)** |
 | *EXP-014* | 2026-09-27 | Ensembling & Blending (Soft Vote, Rank Avg, Stacking) | 0.637907 | 14.12 | 0.732600 (Stack) | 0.828000 | 0.580400 | 123.8s | 1.4GB | **ENSEMBLE RECORD (Stack F0.5=0.7326)** |
+| *EXP-015* | 2026-09-27 | Final Verification & Submission Audit Certification | 0.633817 | 13.19 | 0.729530 (val) | 0.819250 | 0.586150 | 25.8s | 2.1GB | **100% AUDIT PASS (Exit 0)** |
 
 
 ---
@@ -333,3 +334,16 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Percentile Rank Averaging (Borda Count)**: Macro $F_{0.5} = \mathbf{0.728282}$ (Prec: 81.13%, Rec: 59.60%) at optimal rank threshold $0.85$.
 * **Resource Profile**: Total execution wall time **123.82s (2.06 minutes)**, Peak RAM **1.4 GB RSS**.
 * **Decision**: **ENSEMBLE POLICIES VERIFIED & PERSISTED**. Precision-Guarded Stacking and 30/60/10 Calibrated Soft Voting validated as top scoring ensembles. Ready for Phase 15 (Final Pipeline Integration, Submission Packaging & End-to-End Validation).
+
+### EXP-015: Phase 15 — Final Pipeline Integration, Submission Verification & Audit Certification
+* **Date**: September 27, 2026
+* **Objective**: Execute comprehensive verification audit of submission deliverables against official guidelines and run the official challenge validator `student_resource/utils/validate_submission.py`.
+* **Modules**: `student_resource/utils/validate_submission.py`, [`reports/PHASE_15_FINAL_VERIFICATION.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_15_FINAL_VERIFICATION.md), [`output/candidate_pairs.tsv`](file:///c:/Users/DELL/Downloads/Amazon_ML/output/candidate_pairs.tsv), [`output/matching_results.tsv`](file:///c:/Users/DELL/Downloads/Amazon_ML/output/matching_results.tsv), [`submission.zip`](file:///c:/Users/DELL/Downloads/Amazon_ML/submission.zip)
+* **Key Measured Findings & Audit Results**:
+  * **Official Validator Status**: **PASS (Exit Code 0)** — 0 errors, 0 warnings. Safe to submit.
+  * **Entity Coverage**: Exactly **`1,732,544`** rows in both files, matching 100% of test Source 1 entities with 0 duplicates.
+  * **Candidate Parsimony**: Mean candidates per S1 entity = **`13.19`** (comfortably within official $\le 15-20$ constraint); Median = **`14.0`**; Maximum cap strictly **`20`** ($0.00\%$ exceeding 20 or 25).
+  * **Matching Results Integrity**: Total matches emitted = **`3,694,722`**; singletons declared = **`326,004`** ($18.82\%$); mean matches per non-singleton = **`2.63`**; maximum matches per entity strictly **`11`** ($\le 11$ physical cap).
+  * **Subset Invariant**: **100.00%** of emitted matches are strict subsets of `candidate_pairs.tsv`.
+  * **Submission Archive**: `submission.zip` is **165.31 MB** (SHA-256: `5a6f28c87755d87d75c8eb63fc9ebd8bce42f931157cef877fc83064c4b07232`), containing clean `output/`, `Documentation_template.md`, and reproducible `code/`.
+* **Decision**: **100% AUDIT CERTIFIED & SUBMISSION READY**. All 15 phases completed, verified, and pushed to origin/main. Pipeline is fully prepared for official evaluation.

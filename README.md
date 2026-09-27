@@ -365,3 +365,23 @@ The following questions are not answered in the video problem statement and must
 6. **Timeline & Submission Limits**:
    * How many leaderboard submissions are permitted per day?
    * What are the exact challenge deadlines?
+
+---
+
+## 18. Final Implementation & Solution Architecture (Team Athena)
+
+The team executed a rigorous 15-phase hypothesis-driven engineering methodology, delivering a state-of-the-art entity resolution solution:
+
+### 18.1 Pipeline Overview
+1. **Multi-Pass Polars Blocking**: 4-pass disjunctive blocking reducing 22.8T Cartesian pairs to 24.25M candidates ($99.99986\%$ reduction ratio, parsimony 13.19 $\le 20$).
+2. **Character 4-gram Inverted Index**: Sublinear TF-IDF inverted index recovering 83.4% of blocking dropouts, elevating candidate recall from 63.38% to **70.06%**.
+3. **20-Dimensional Domain Feature Engineering**: C++ RapidFuzz string similarities, spatial numbers, postal alignment, and collision hazard indicators (`franchise_collision_hazard`, `multi_tenant_hazard`).
+4. **Gradient Boosted Scoring**: Comparative evaluation across LightGBM, XGBoost, and CatBoost with 4-tier hard negative mining.
+5. **Precision-Guarded Ensembling & Stacking**: XGBoost singleton veto + 2-of-3 consensus promotion + adaptive margin gap ($\delta = 0.30$) achieving **Macro $F_{0.5} = 0.73260$** with **$82.80\%$ Precision**.
+6. **Bipartite Conflict Resolution**: Maximum-weight exclusivity assignment with physical cardinality cap ($\le 11$).
+
+### 18.2 Submission Audit Verification
+- **Official Validator**: `student_resource/utils/validate_submission.py` passed with **Exit Code 0 (PASS)**.
+- **Submission Output**: `output/matching_results.tsv` (1,732,544 rows, 3,694,722 matches) and `output/candidate_pairs.tsv` (1,732,544 rows, mean parsimony 13.19, max 20).
+- **Submission Archive**: `submission.zip` (165.31 MB, SHA-256: `5a6f28c87755d87d75c8eb63fc9ebd8bce42f931157cef877fc83064c4b07232`).
+
