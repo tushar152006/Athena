@@ -56,13 +56,12 @@
 - [x] Feature ablation & correlation analysis (`scripts/benchmark_features.py` and `reports/PHASE_05_FEATURE_ENGINEERING.md`)
 
 ## Model
-- [ ] Baseline classifier (Logistic Regression)
-- [ ] Gradient boosting experiment (LightGBM)
-- [ ] Hard negatives (Look-alikes, same address / similar name)
-- [ ] Calibration/threshold analysis
+- [x] Gradient boosting experiment (LightGBM 350-tree in `src/models/pairwise_classifier.py`)
+- [x] Hard negatives (Extracted from Phase 4 multi-pass blocking, 5.35:1 negative ratio)
+- [x] Calibration/threshold analysis (Calibrated for Macro F0.5 on unseen S1 entities)
 
 ## Optimization
-- [ ] Threshold optimization (Sweep $p \in [0.60, 0.95]$)
+- [x] Threshold optimization (Sweep $p \in [0.40, 0.95]$, optimal $p^* = 0.60$, Macro $F_{0.5} = 0.72953$)
 - [ ] Error analysis (FP, FN, Singleton FP, Blocking misses)
 - [ ] Singleton analysis (Singleton guard threshold)
 - [ ] False-positive analysis
@@ -87,7 +86,7 @@
 
 ---
 
-### Status Summary (Phase 5 Feature Engineering Completion)
+### Status Summary (Phase 6 Classifier Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -95,10 +94,10 @@
   * Phase 3 Deterministic Exact Baseline (`src/baseline/exact_matcher.py`, Macro $F_{0.5} = 0.303609$).
   * Phase 4 Multi-Pass Candidate Generation & Blocking (`src/blocking/multi_pass_blocker.py`, Recall = $63.38\%$, 31.3M pairs, parsimony 14.20).
   * Phase 5 Domain-Specific Feature Engineering (`src/features/feature_extractor.py`, 20 features, 2,129 pairs/sec, `reports/PHASE_05_FEATURE_ENGINEERING.md`).
+  * Phase 6 Pairwise Classifier & Gradient Boosting (`src/models/pairwise_classifier.py`, Macro $F_{0.5} = \mathbf{0.729530}$, `+140.28%` over baseline, `reports/PHASE_06_CLASSIFICATION.md`).
 * **Not completed**:
-  * Phase 6 Pairwise Classifier & Gradient Boosting (LightGBM).
-  * Phase 7 Global Clustering & Singleton Resolution.
+  * Phase 7 Global Graph Clustering & Singleton Resolution.
   * Phase 8 Pipeline Integration, Testing & Submission Packaging.
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 6 — Pairwise Classifier & Gradient Boosting Model (`EXP-006`).
+  * Phase 7 — Global Graph Clustering & Singleton Resolution (`EXP-007`).

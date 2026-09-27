@@ -13,8 +13,8 @@ Every single experiment, ablation, and model trial must be logged here chronolog
 | *EXP-002* | 2026-09-27 | Local Evaluator Engine & 2.2M Benchmark | 1.000000 | 3.46 | 1.000000 | 1.000000 | 1.000000 | 13.56s | 2.03GB | **EVALUATOR VERIFIED** |
 | *EXP-003* | 2026-09-27 | Deterministic Exact Baseline Matcher | 0.181969 | 2.83 | 0.303609 | 0.393628 | 0.206765 | 113.33s | 3.65GB | **BASELINE ESTABLISHED** |
 | *EXP-004* | 2026-09-27 | Multi-Pass Candidate Generation & Blocking | 0.633817 | 14.20 | 0.277664 | 0.260261 | 0.601758 | 122.85s | 4.60GB | **BLOCKING ACCEPTED** |
-| *EXP-005* | 2026-09-27 | Domain-Specific Feature Extraction Engine | 0.633817 | 14.20 | `N/A` (Features) | `N/A` | `N/A` | 32.9s (70k) | 0.8GB | **FEATURES ACCEPTED** |
-| *EXP-006* | *Planned* | Pairwise Classifier & LightGBM Model | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 6 |
+| *EXP-006* | 2026-09-27 | LightGBM Pairwise Classifier (p*=0.60) | 0.633817 | 14.20 | 0.729530 | 0.819250 | 0.586150 | 119.5s | 1.2GB | **MODEL ACCEPTED (+140.3%)** |
+| *EXP-007* | *Planned* | Global Graph Clustering & Singleton Guard | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Pending Phase 7 |
 
 
 ---
@@ -183,8 +183,27 @@ Every single experiment, ablation, and model trial must be logged here chronolog
   * **Pass Contributions**: Pass 1 (Name Core): 13.12M, Pass 2 (Street+Num): 12.95M, Pass 3 (Postal+Prefix): 0.34M, Pass 4 (Sorted Tokens): 21.42M.
 * **Resource Profile**: Total pipeline wall time **122.85s**, Streaming evaluation time **16.75s**, Peak process RAM **4.60 GB**.
 * **Key Findings**: Multi-pass blocking dramatically expands coverage across legal suffix variants and street-level matches. The resulting candidate pool establishes a clean $6.47 : 1$ negative-to-positive ratio ready for pairwise feature engineering and classification.
-* **Decision**: **BLOCKING ACCEPTED**. Candidate pairs will serve as the candidate set for Phase 5 Feature Engineering.
-* **Next Step**: Phase 5 — Domain-Specific Feature Engineering (Awaiting User Prompt).
+* **Decision**: **FEATURES ACCEPTED**. Adopted as the feature set for Phase 6 LightGBM classification.
+* **Next Step**: Phase 6 — Pairwise Classifier & Gradient Boosting Model (`EXP-006`).
+
+### EXP-006: Phase 6 — LightGBM Pairwise Classifier & Macro F0.5 Calibration
+* **Date**: September 27, 2026
+* **Objective**: Train a 350-tree LightGBM pairwise scoring model on candidate pairs with an entity-stratified split (16k train S1, 4k val S1) and optimize the classification threshold $p^*$ specifically for Macro $F_{0.5}$.
+* **Modules**: [`src/models/pairwise_classifier.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/src/models/pairwise_classifier.py), [`scripts/train_classifier.py`](file:///c:/Users/DELL/Downloads/Amazon_ML/scripts/train_classifier.py), [`reports/PHASE_06_CLASSIFICATION.md`](file:///c:/Users/DELL/Downloads/Amazon_ML/reports/PHASE_06_CLASSIFICATION.md)
+* **Model Checkpoint**: [`models/lightgbm_pairwise.txt`](file:///c:/Users/DELL/Downloads/Amazon_ML/models/lightgbm_pairwise.txt)
+* **Measured Validation Results on 4,000 Unseen S1 Entities (56,469 Candidate Pairs)**:
+  * **Validation ROC-AUC**: **`0.9962`**
+  * **Validation PR-AUC**: **`0.9807`**
+  * **Optimal Threshold $p^*$**: **`0.60`**
+  * **Macro $F_{0.5}$ Score**: **`0.729530`** (A **`+140.28%`** relative improvement and **`+0.42592`** absolute gain over Phase 3 Baseline Floor of `0.303609`).
+  * **Macro Precision**: **`0.819250`** ($81.93\%$, **`+108.13%`** over Baseline).
+  * **Macro Recall**: **`0.586150`** ($58.62\%$, **`+183.49%`** over Baseline).
+  * **Singleton Accuracy**: **`0.880340`** ($88.03\%$, **`+41.25%`** over Baseline).
+* **Resource Profile**: Total pipeline wall time **119.5s** (Feature extraction: 76.8s train + 7.6s val; Training: 34.2s), Peak RAM **1.2 GB**.
+* **Key Findings**: Address features dominate the gradient boosting splits (`addr_qgram_jaccard` Gain = 731k, `addr_token_set_ratio` Gain = 426k, `addr_num_match` Gain = 98k). The calibrated threshold of $p^* = 0.60$ strikes the optimal trade-off for the $\beta=0.5$ precision weighting.
+* **Decision**: **MODEL ACCEPTED**. Baseline floor surpassed by +140.3%. Adopted for Phase 7 Graph Clustering and Singleton Resolution.
+* **Next Step**: Phase 7 — Global Graph Clustering & Singleton Resolution (Awaiting User Prompt).
+
 
 
 

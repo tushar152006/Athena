@@ -1,0 +1,200 @@
+{
+  "num_train_s1": 16000,
+  "num_val_s1": 4000,
+  "num_train_pairs": 227611,
+  "num_val_pairs": 56469,
+  "optimal_threshold": 0.6,
+  "best_macro_f05": 0.7295265452349152,
+  "best_macro_precision": 0.8192473214285712,
+  "best_macro_recall": 0.5861541666666656,
+  "singleton_accuracy": 0.8803418803418803,
+  "sweep_results": [
+    {
+      "threshold": 0.4,
+      "macro_f05": 0.7229154830454896,
+      "macro_precision": 0.7923380952380942,
+      "macro_recall": 0.615416567460317,
+      "singleton_accuracy": 0.7350427350427351
+    },
+    {
+      "threshold": 0.45,
+      "macro_f05": 0.726905735304652,
+      "macro_precision": 0.8022402777777772,
+      "macro_recall": 0.6086015873015863,
+      "singleton_accuracy": 0.7735042735042735
+    },
+    {
+      "threshold": 0.5,
+      "macro_f05": 0.7292499708271047,
+      "macro_precision": 0.8079135912698407,
+      "macro_recall": 0.6046955357142846,
+      "singleton_accuracy": 0.8162393162393162
+    },
+    {
+      "threshold": 0.55,
+      "macro_f05": 0.728490006918246,
+      "macro_precision": 0.8156350198412694,
+      "macro_recall": 0.589877976190475,
+      "singleton_accuracy": 0.8547008547008547
+    },
+    {
+      "threshold": 0.6,
+      "macro_f05": 0.7295265452349152,
+      "macro_precision": 0.8192473214285712,
+      "macro_recall": 0.5861541666666656,
+      "singleton_accuracy": 0.8803418803418803
+    },
+    {
+      "threshold": 0.65,
+      "macro_f05": 0.7279875475838138,
+      "macro_precision": 0.8194705357142855,
+      "macro_recall": 0.5816568452380944,
+      "singleton_accuracy": 0.905982905982906
+    },
+    {
+      "threshold": 0.7,
+      "macro_f05": 0.7241076200445087,
+      "macro_precision": 0.8171895833333331,
+      "macro_recall": 0.5753175595238085,
+      "singleton_accuracy": 0.9145299145299145
+    },
+    {
+      "threshold": 0.75,
+      "macro_f05": 0.7187802140508827,
+      "macro_precision": 0.8148047619047618,
+      "macro_recall": 0.5662916666666659,
+      "singleton_accuracy": 0.9230769230769231
+    },
+    {
+      "threshold": 0.8,
+      "macro_f05": 0.7133148820272577,
+      "macro_precision": 0.8122595238095239,
+      "macro_recall": 0.5568133928571419,
+      "singleton_accuracy": 0.9316239316239316
+    },
+    {
+      "threshold": 0.85,
+      "macro_f05": 0.7042243718173447,
+      "macro_precision": 0.8058791666666668,
+      "macro_recall": 0.5446636904761899,
+      "singleton_accuracy": 0.9700854700854701
+    },
+    {
+      "threshold": 0.9,
+      "macro_f05": 0.6924975859850143,
+      "macro_precision": 0.796875,
+      "macro_recall": 0.5287710317460311,
+      "singleton_accuracy": 0.9829059829059829
+    },
+    {
+      "threshold": 0.95,
+      "macro_f05": 0.6600311830558542,
+      "macro_precision": 0.7720166666666667,
+      "macro_recall": 0.48818849206349224,
+      "singleton_accuracy": 0.9957264957264957
+    }
+  ],
+  "feature_importances": [
+    {
+      "feature": "addr_qgram_jaccard",
+      "split": 1068,
+      "gain": 731861.5241019595
+    },
+    {
+      "feature": "addr_token_set_ratio",
+      "split": 1060,
+      "gain": 426184.38696118444
+    },
+    {
+      "feature": "addr_token_sort_ratio",
+      "split": 982,
+      "gain": 126811.81241500005
+    },
+    {
+      "feature": "name_qgram_jaccard",
+      "split": 683,
+      "gain": 124368.35100951791
+    },
+    {
+      "feature": "addr_num_match",
+      "split": 500,
+      "gain": 98144.95992134511
+    },
+    {
+      "feature": "name_token_set_ratio",
+      "split": 707,
+      "gain": 74719.44601103477
+    },
+    {
+      "feature": "name_token_sort_ratio",
+      "split": 639,
+      "gain": 66835.62735062838
+    },
+    {
+      "feature": "addr_available",
+      "split": 66,
+      "gain": 41482.131917476654
+    },
+    {
+      "feature": "name_len_diff",
+      "split": 807,
+      "gain": 30276.8130531488
+    },
+    {
+      "feature": "candidate_rank_in_entity",
+      "split": 682,
+      "gain": 24109.091741474345
+    },
+    {
+      "feature": "name_jaro_winkler",
+      "split": 821,
+      "gain": 20440.493300711736
+    },
+    {
+      "feature": "addr_shared_words_count",
+      "split": 679,
+      "gain": 11938.309991881251
+    },
+    {
+      "feature": "franchise_collision_hazard",
+      "split": 39,
+      "gain": 9545.942357420921
+    },
+    {
+      "feature": "name_levenshtein_ratio",
+      "split": 691,
+      "gain": 8218.896813303232
+    },
+    {
+      "feature": "name_len_ratio",
+      "split": 751,
+      "gain": 6415.919213294983
+    },
+    {
+      "feature": "name_first_token_match",
+      "split": 183,
+      "gain": 4074.5483824014664
+    },
+    {
+      "feature": "addr_postal_match",
+      "split": 132,
+      "gain": 2279.428906619549
+    },
+    {
+      "feature": "multi_tenant_hazard",
+      "split": 7,
+      "gain": 55.08061075210571
+    },
+    {
+      "feature": "name_exact_clean",
+      "split": 3,
+      "gain": 23.118030309677124
+    },
+    {
+      "feature": "blocking_consensus_score",
+      "split": 0,
+      "gain": 0.0
+    }
+  ],
+  "total_runtime_sec": 190.42
+}
