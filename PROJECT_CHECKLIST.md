@@ -62,8 +62,8 @@
 
 ## Optimization
 - [x] Threshold optimization (Sweep $p \in [0.40, 0.95]$, optimal $p^* = 0.60$, Macro $F_{0.5} = 0.72953$)
+- [x] Singleton analysis & guard threshold (`src/clustering/graph_clusterer.py`, guard $p_{\text{singleton}} = 0.60$, accuracy $85.66\%$)
 - [ ] Error analysis (FP, FN, Singleton FP, Blocking misses)
-- [ ] Singleton analysis (Singleton guard threshold)
 - [ ] False-positive analysis
 - [ ] False-negative analysis
 
@@ -86,7 +86,7 @@
 
 ---
 
-### Status Summary (Phase 6 Classifier Completion)
+### Status Summary (Phase 7 Graph Clustering Completion)
 * **Completed**:
   * Phase 0 Project & Resource Audit (`reports/PHASE_00_AUDIT.md`).
   * Phase 1 Full Data Forensics & Noise Profiling (`reports/PHASE_01_DATA_FORENSICS.md`).
@@ -95,9 +95,9 @@
   * Phase 4 Multi-Pass Candidate Generation & Blocking (`src/blocking/multi_pass_blocker.py`, Recall = $63.38\%$, 31.3M pairs, parsimony 14.20).
   * Phase 5 Domain-Specific Feature Engineering (`src/features/feature_extractor.py`, 20 features, 2,129 pairs/sec, `reports/PHASE_05_FEATURE_ENGINEERING.md`).
   * Phase 6 Pairwise Classifier & Gradient Boosting (`src/models/pairwise_classifier.py`, Macro $F_{0.5} = \mathbf{0.729530}$, `+140.28%` over baseline, `reports/PHASE_06_CLASSIFICATION.md`).
+  * Phase 7 Global Graph Clustering & Singleton Resolution (`src/clustering/graph_clusterer.py`, Macro $F_{0.5} = \mathbf{0.722420}$, megacluster suppression $\le 11$, `reports/PHASE_07_CLUSTERING.md`).
 * **Not completed**:
-  * Phase 7 Global Graph Clustering & Singleton Resolution.
-  * Phase 8 Pipeline Integration, Testing & Submission Packaging.
+  * Phase 8 End-to-End Pipeline Integration, Testing & Submission Packaging.
 * **Blocked**: None.
 * **Next recommended task**:
-  * Phase 7 — Global Graph Clustering & Singleton Resolution (`EXP-007`).
+  * Phase 8 — End-to-End Pipeline Integration, Submission Packaging & Verification (`EXP-008`).

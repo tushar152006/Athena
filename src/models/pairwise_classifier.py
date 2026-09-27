@@ -108,8 +108,13 @@ class LightGBMPairwiseClassifier:
         """Return positive class probabilities P(is_match=1)."""
         if not self.is_fitted:
             raise RuntimeError("Model is not fitted yet.")
-        probas = self.model.predict_proba(X)[:, 1]
-        return probas
+        if hasattr(self, "booster") and self.booster is not None:
+            return np.asarray(self.booster.predict(X), dtype=np.float32)
+        elif hasattr(self.model, "booster_") and self.model.booster_ is not None:
+            return np.asarray(self.model.predict_proba(X)[:, 1], dtype=np.float32)
+        elif hasattr(self.model, "_Booster") and self.model._Booster is not None:
+            return np.asarray(self.model._Booster.predict(X), dtype=np.float32)
+        return np.asarray(self.model.predict_proba(X)[:, 1], dtype=np.float32)
 
     def predict(self, X: np.ndarray, threshold: Optional[float] = None) -> np.ndarray:
         """Predict binary match decisions using specified or calibrated threshold."""
@@ -124,7 +129,7 @@ class LightGBMPairwiseClassifier:
         if not self.is_fitted:
             raise RuntimeError("Model is not fitted yet.")
 
-        booster = self.model.booster_
+        booster = self.booster if hasattr(self, "booster") and self.booster is not None else self.model.booster_
         split_imp = booster.feature_importance(importance_type="split")
         gain_imp = booster.feature_importance(importance_type="gain")
 
@@ -277,7 +282,7 @@ class LightGBMPairwiseClassifier:
         path = Path(filepath)
         booster = lgb.Booster(model_file=str(path))
         classifier = cls()
-        classifier.model._Booster = booster
+        classifier.booster = booster
         classifier.is_fitted = True
 
         meta_path = path.with_suffix(".meta.json")
